@@ -5,7 +5,7 @@ var userSchema = new mongoose.Schema({
 	name: String,
 	avatar_url: String,
 	email: String,
-	boards [ _id: ObjectId]
+	boards: [ObjectId]
 });
 
 module.exports = mongoose.model('User', userSchema);

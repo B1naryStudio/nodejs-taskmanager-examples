@@ -1,5 +1,5 @@
 var Repository = require('../units/Repository');
-var Board = require('../schemas/board');
+var Board = require('../schemas/Board');
 
 
 function BoardRepository (){

@@ -7,4 +7,6 @@ function UserRepository (){
 	this.model = User;
 }
 
+UserRepository.prototype = new Repository();
+
 module.exports = new UserRepository();

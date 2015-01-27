@@ -7,4 +7,6 @@ function TaskRepository (){
 	this.model = Task;
 }
 
+TaskRepository.prototype = new Repository();
+
 module.exports = new TaskRepository();

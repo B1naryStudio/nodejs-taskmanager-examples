@@ -7,4 +7,6 @@ function BoardRepository (){
 	this.model = Board;
 }
 
+BoardRepository.prototype = new Repository();
+
 module.exports = new BoardRepository();

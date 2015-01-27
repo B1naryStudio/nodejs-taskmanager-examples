@@ -1,5 +1,5 @@
 var router = require('express').Router();
-var boardRepository = require('../../repositories/boardRepository');
+var boardRepository = require('../../repositories/board');
 var isLoggedIn = require('../../middleware/isLoggedIn');
 
 router.get('/', isLoggedIn, function(req, res, next){

@@ -1,5 +1,5 @@
 var router = require('express').Router();
-var userRepository = require('../../repositories/userRepository');
+var userRepository = require('../../repositories/user');
 var isLoggedIn = require('../../middleware/isLoggedIn');
 var apiResponse = require('express-api-response');
 

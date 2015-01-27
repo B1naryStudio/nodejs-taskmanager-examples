@@ -4,6 +4,11 @@ var Repository = function(){
 
 };
 
+Repository.prototype.findOne = function(props, callback) {
+	var query = this.model.findOne(props);
+	query.exec(callback);
+};
+
 Repository.prototype.add = function(data, callback) {
 	var newitem = new this.model(data);
 	newitem.save(callback);

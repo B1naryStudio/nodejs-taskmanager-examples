@@ -1,10 +1,9 @@
 var router = require('express').Router();
-var boardRepository = require('../../repositories/boardRepository');
+var boardRepository = require('../../repositories/board');
 var isLoggedIn = require('../../middleware/isLoggedIn');
 var apiResponse = require('express-api-response');
 
 router.get('/', isLoggedIn, function(req, res, next){
-	console.log('asd');
 	boardRepository.findWhere({}, function(err, data){
 		res.data = data.map(function(it){return it.getViewModel();});
 		res.err = err;

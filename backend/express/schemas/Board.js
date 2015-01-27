@@ -1,7 +1,7 @@
 var mongoose = require('mongoose');
+var ObjectId = mongoose.Schema.ObjectId;
 
 var Board = new mongoose.Schema({
-	_id : ObjectId,
 	name: String,
 	columns: [{
 		name : String,
@@ -14,4 +14,4 @@ var Board = new mongoose.Schema({
 	}],
 });
 
-module.exports = mongoose.model('Board', boardSchema);
+module.exports = mongoose.model('Board', Board);

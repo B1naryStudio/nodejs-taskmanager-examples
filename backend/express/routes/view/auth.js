@@ -3,6 +3,7 @@ var userService = require('../../services/user');
 var router = require('express').Router();
 
 router.get('/signup', function(req, res, next){
+	console.log('asd');
 	res.render('signup');
 });
 

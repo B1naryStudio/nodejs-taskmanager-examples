@@ -29,6 +29,6 @@ require.config({
 	}
 });
 
-require(['jquery', 'foundation', 'app/app', 'validation', 'datepicker'], function($){
+require(['jquery', 'foundation', 'app/app'], function($){
 	$(document).foundation();
 });

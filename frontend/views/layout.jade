@@ -3,6 +3,14 @@ html(lang="en")
 head
 	meta(charset="UTF-8")
 	title Task Manager
-	link(rel="stylesheet", href="./stylesheets/style.css")
+	link(rel="stylesheet", href="./styles/style.css")
+	link(rel="stylesheet", href="/bower_components/foundation/css/foundation.css")
+	link(rel="stylesheet", href="/bower_components/font-awesome/css/font-awesome.css")
 body
-	block content
+	#header
+	#content
+	#footer
+
+	include ./board/layout
+
+	script(src="/javascripts/libs/require.js", data-main="/javascripts/main.js")

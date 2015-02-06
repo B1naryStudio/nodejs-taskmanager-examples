@@ -8,6 +8,6 @@ module.exports = function(app){
 	app.use('/auth', auth);
 
 	app.get('/', function(req, res){
-		res.render('index', {user: req.user});
+		res.render('layout', {user: req.user});
 	});
 };

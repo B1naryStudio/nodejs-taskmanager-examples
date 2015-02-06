@@ -18,10 +18,10 @@ Application.prototype.configure = function(app){
 	app.set('views', path.normalize(__dirname + '/../../frontend/views'));
 	app.set('view engine', 'jade');
 
-	var staticPath = path.normalize(__dirname + '/../public');
+	var staticPath = path.normalize(__dirname + '/../../public');
 	app.use(express.static(staticPath));
 	
-	staticPath = path.normalize(__dirname + '/../bower_components');
+	staticPath = path.normalize(__dirname + '/../../frontend/bower_components');
 	app.use('/bower_components', express.static(staticPath));
 
 	context.mongoStore = new MongoStore({

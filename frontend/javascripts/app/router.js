@@ -3,12 +3,7 @@ define(['marionette', './appMediator', './context'],
 
 	var Router = Marionette.AppRouter.extend({
 		appRoutes: {
-			'': 'showSearch',
-			'business/:route': 'showBusiness',
-			'admin/:route': 'showAdmin',
-			'signin' : 'showSignin',
-			'signup' : 'showSignup',
-			'search': 'showSearch'	
+			'': 'showBoards'
 		}
 	});
 

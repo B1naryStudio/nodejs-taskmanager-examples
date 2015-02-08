@@ -5,7 +5,7 @@ var apiResponse = require('express-api-response');
 
 router.get('/', isLoggedIn, function(req, res, next){
 	boardRepository.findWhere({}, function(err, data){
-		res.data = data.map(function(it){return it.getViewModel();});
+		res.data = data;
 		res.err = err;
 		next();
 	});
@@ -23,15 +23,25 @@ router.post('/', isLoggedIn, function(req, res, next){
 }, apiResponse);
 
 router.get('/:id', isLoggedIn, function(req, res, next){
-	boardRepository.findOne({id: req.params.id}, function(err, data){
-		res.data = data.getViewModel();
+	boardRepository.findOne({_id: req.params.id}, function(err, data){
+		res.data = data;
+		res.err = err;
+		next();
+	});
+}, apiResponse);
+
+router.get('/:id/task', isLoggedIn, function(req, res, next){
+	boardRepository.findOne({_id: req.params.id}, function(err, data){
+		if (data){
+			res.data = data.tasks;
+		}
 		res.err = err;
 		next();
 	});
 }, apiResponse);
 
 router.delete('/:id', isLoggedIn, function(req, res, next){
-	boardRepository.findAndDelete({id: req.params.id}, function(err, data){
+	boardRepository.findAndDelete({_id: req.params.id}, function(err, data){
 		res.err = err;
 		next();
 	});
@@ -39,7 +49,7 @@ router.delete('/:id', isLoggedIn, function(req, res, next){
 
 router.put('/:id', isLoggedIn, function(req, res, next){
 	var obj = req.body;
-	boardRepository.findOneAndUpdate({id: Number(req.params.id)}, obj, function(err, data){
+	boardRepository.findOneAndUpdate({_id: Number(req.params.id)}, obj, function(err, data){
 		res.err = err;
 		next();
 	});

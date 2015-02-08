@@ -1,4 +1,5 @@
-define(['../board/boardMediator', 'backbone'], function(boardMediator, Backbone){
+define(['../board/boardMediator', '../task/taskMediator', 'backbone'], 
+	function(boardMediator, taskMediator, Backbone){
 	
 	var AppMediator = function(){
 		this.initializeRegion();
@@ -16,6 +17,12 @@ define(['../board/boardMediator', 'backbone'], function(boardMediator, Backbone)
 		var boardLayout = boardMediator.getLayout(route);
 		this.region.show(boardLayout);
 		Backbone.trigger('current-mediator', 'board');
+	};
+
+	AppMediator.prototype.showTasks = function(route){
+		var taskLayout = taskMediator.getLayout(route);
+		this.region.show(taskLayout);
+		Backbone.trigger('current-mediator', 'task');
 	};
 
 	return new AppMediator();

@@ -1,25 +1,24 @@
 define(['marionette'], function(Marionette){
-	var AddNewBoardView = Marionette.ItemView.extend({
-		className: 'create-board-modal', 
-		template: '#new-board-template',
+	var AddNewTaskView = Marionette.ItemView.extend({
+		className: 'create-task-modal', 
+		template: '#new-task-template',
 		ui: {
-			'cancel': '#new-board-cancel',
-			'name': '#new-board-name',
-			'isPrivate': '#new-board-private',
-			'createBoard': '#create-board'
+			'cancel': '#new-task-cancel',
+			'name': '#new-task-name',
+			'isPrivate': '#new-task-private',
+			'createTask': '#create-task'
 		},
 
 		events: {
-			'click @ui.createBoard': 'onCreateBoard',
+			'click @ui.createTask': 'onCreateTask',
 			'click @ui.cancel': 'hide'
 		},
 
-		onCreateBoard: function(){
+		onCreateTask: function(){
 			var name = this.ui.name.val();
 			var isPrivate = this.ui.isPrivate.val();
 			this.trigger('add', {
-				name: name,
-				isPrivate: isPrivate
+				name: name
 			});
 			this.hide();
 		},
@@ -41,5 +40,5 @@ define(['marionette'], function(Marionette){
 		}
 	});
 
-	return AddNewBoardView;
+	return AddNewTaskView;
 });

@@ -30,6 +30,10 @@ module.exports = function (grunt) {
 			styles: {
 				files: ['<%= stylesheets %>'],
 				tasks: ['stylus']
+			},
+			jade: {
+				files: ['views/'],
+				tasks: []
 			}
 		},
 

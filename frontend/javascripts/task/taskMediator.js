@@ -1,0 +1,59 @@
+define(['../units/Mediator', 'backbone', './TaskCompositeView',
+	'./TaskCollection', './TaskLayout'], 
+	function(Mediator, Backbone, TaskCompositeView,
+		TaskCollection, TaskLayout){
+
+	var TaskMediator = function(){
+		Mediator.prototype.constructor.call(this);
+	};
+
+	TaskMediator.prototype = new Mediator();
+
+	TaskMediator.prototype.id = 'task';
+
+	TaskMediator.prototype.getLayout = function(route) {
+		var self = this;
+		this.boardId = route;
+		if (!this.layout){
+			this.layout = new TaskLayout();
+			this.layout.on('show', function(){
+				self.regionManager = new Marionette.RegionManager();
+				self.regions = self.regionManager.addRegions({
+					taskContent: '#task-content'
+				});
+				var matched = self.matchRoute(route);
+			});
+		} 
+		return this.layout;
+	};
+
+	TaskMediator.prototype.getTasksView = function() {
+			var self = this;
+			if (!this.task){
+				this.task = {};
+				this.task.collection = new TaskCollection();
+			}
+			this.task.collection.boardId = this.boardId;
+			this.task.collection.fetch();
+			this.task.view = new TaskCompositeView({
+				collection: this.task.collection,
+				model: new Backbone.Model()
+			});
+
+			return this.task.view;
+	};
+
+	TaskMediator.prototype.showTasks = function() {
+		var tasksView = this.getTasksView();
+		this.regions.taskContent.show(tasksView);
+	};
+
+	TaskMediator.prototype.initializeRoutes = function() {
+		this.routes = {
+			'': 'showTasks'
+		};
+	};
+
+	return new TaskMediator();
+
+});

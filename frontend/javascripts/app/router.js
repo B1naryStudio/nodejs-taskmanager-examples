@@ -3,7 +3,8 @@ define(['marionette', './appMediator', './context'],
 
 	var Router = Marionette.AppRouter.extend({
 		appRoutes: {
-			'': 'showBoards'
+			'': 'showBoards',
+			'board/:id': 'showTasks'
 		}
 	});
 

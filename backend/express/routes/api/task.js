@@ -1,5 +1,6 @@
 var router = require('express').Router();
 var taskRepository = require('../../repositories/task');
+var taskService = require('../../services/task');
 var isLoggedIn = require('../../middleware/isLoggedIn');
 var apiResponse = require('express-api-response');
 
@@ -13,10 +14,8 @@ router.get('/', isLoggedIn, function(req, res, next){
 
 router.post('/', isLoggedIn, function(req, res, next){
 	var obj = req.body;
-	taskRepository.add(obj, function(err, data){
-		if (!err && data.rowCount){
-			res.data = data.rows[0];
-		}
+	taskService.addTask(obj, function(err, data){
+		res.data = data;
 		res.err = err;
 		next();
 	});

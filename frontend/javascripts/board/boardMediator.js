@@ -30,12 +30,13 @@ define(['../units/Mediator', 'backbone', './Board', './BoardCompositeView',
 	BoardMediator.prototype.getBoardsView = function() {
 			var self = this;
 			if (!this.board){
-					this.board = {};
-					this.board.collection = new BoardCollection();
+				this.board = {};
+				this.board.collection = new BoardCollection();
 			}
+			this.board.collection.fetch();
 			this.board.view = new BoardCompositeView({
-					collection: this.board.ollection,
-					model: new Board()
+				collection: this.board.collection,
+				model: new Board()
 			});
 
 			return this.board.view;

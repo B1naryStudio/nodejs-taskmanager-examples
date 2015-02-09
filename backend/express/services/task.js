@@ -12,7 +12,7 @@ TaskService.prototype.addTask = function(task, callback){
 		if (err) {
 			return callback(err, null);
 		}
-		boardRepository.addTask(boardId, task.id, function(err, data){
+		boardRepository.addTask(boardId, model._id, function(err, data){
 			console.log(err, data);
 			return callback(err, model);
 		});	

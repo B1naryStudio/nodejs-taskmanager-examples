@@ -31,7 +31,7 @@ router.get('/:id', isLoggedIn, function(req, res, next){
 }, apiResponse);
 
 router.get('/:id/task', isLoggedIn, function(req, res, next){
-	boardRepository.findOne({_id: req.params.id}, function(err, data){
+	boardRepository.findOneAndPopulate({_id: req.params.id}, function(err, data){
 		if (data){
 			res.data = data.tasks;
 		}

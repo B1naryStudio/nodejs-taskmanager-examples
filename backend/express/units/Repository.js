@@ -14,6 +14,14 @@ Repository.prototype.findOne = function(props, callback) {
 	query.exec(callback);
 };
 
+Repository.prototype.findOneAndPopulate = function(props, callback) {
+	var query = this.model.findOne(props);
+	for (var i = 0; i < this.fieldsToPopulate.length; i++){
+		query.populate(this.fieldsToPopulate[i]);
+	}
+	query.exec(callback);
+};
+
 Repository.prototype.add = function(data, callback) {
 	var newitem = new this.model(data);
 	newitem.save(callback);

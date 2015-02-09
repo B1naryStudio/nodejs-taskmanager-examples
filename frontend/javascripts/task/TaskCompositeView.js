@@ -7,9 +7,9 @@ define(['marionette', './TaskItemView', './AddNewTaskView', './Task'],
 		template: '#tasks-template',
 
 		ui:{
-			'to-do': '#to-do .tasks-container',			
-			'in-progress': '#in-progress .tasks-container',			
-			'done': '#done .tasks-container',
+			'to-do': '#tasks-to-do .tasks-container',			
+			'in-progress': '#tasks-in-progress .tasks-container',			
+			'done': '#tasks-done .tasks-container',
 			'addNewTask': '.add-new-task'
 		},
 
@@ -24,6 +24,7 @@ define(['marionette', './TaskItemView', './AddNewTaskView', './Task'],
 				this.addNewTaskView = new AddNewTaskView();
 				this.addNewTaskView.on('add', function(obj){
 					obj.status = self.status;
+					obj.boardId = self.collection.boardId;
 					var task = new Task(obj);
 					self.collection.create(task, {wait: true});
 				});

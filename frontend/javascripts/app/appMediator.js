@@ -1,5 +1,7 @@
-define(['../board/boardMediator', '../task/taskMediator', 'marionette', 'backbone'], 
-	function(boardMediator, taskMediator, Marionette, Backbone){
+define(['../board/boardMediator', '../task/taskMediator', '../header/headerMediator',
+	'marionette', 'backbone'], 
+	function(boardMediator, taskMediator, headerMediator,
+		Marionette, Backbone){
 	
 	var AppMediator = function(){
 		this.initializeRegion();

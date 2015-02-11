@@ -14,4 +14,10 @@ User.methods.isValidPassword = function(password){
 	return bcrypt.compareSync(password, this.password);
 };
 
+User.methods.getViewModel = function(){
+	return {
+		email: this.email
+	};
+};
+
 module.exports = mongoose.model('User', User);

@@ -3,19 +3,11 @@ var taskRepository = require('../../repositories/task');
 var isLoggedIn = require('../../middleware/isLoggedIn');
 
 router.get('/', isLoggedIn, function(req, res, next){
-	taskRepository.findWhere({}, function(err, data){
-		res.data = data.map(function(it){return it.getViewModel();});
-		res.err = err;
-		next();
-	});
+	res.render('layout');
 });
 
 router.get('/:id', isLoggedIn, function(req, res, next){
-	taskRepository.findOne({id: req.params.id}, function(err, data){
-		res.data = data.getViewModel();
-		res.err = err;
-		next();
-	});
+	res.render('layout');
 });
 
 module.exports = router;

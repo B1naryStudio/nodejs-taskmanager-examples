@@ -33,7 +33,7 @@ module.exports = function () {
 	
 	passport.deserializeUser(function (id, done) {
 		userService.findById(id, function(err, user){
-			done(err, user);
+			done(err, user.getViewModel());
 		});
 	});
 };

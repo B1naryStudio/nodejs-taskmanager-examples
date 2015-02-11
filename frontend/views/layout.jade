@@ -9,6 +9,7 @@ head
 body
 	#header
 		#header-left
+		#header-right
 			
 	#content
 		block content
@@ -18,4 +19,8 @@ body
 	include ./task/layout
 	include ./header/layout
 
+	script.
+		window.__data = {
+			user: JSON.parse('!{user}')
+		};
 	script(src="/javascripts/libs/require.js", data-main="/javascripts/main.js")

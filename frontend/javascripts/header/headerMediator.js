@@ -16,11 +16,15 @@ define(['./GoToBoardsView', './UserView', './User', 'backbone'],
 
 	HeaderMediator.prototype.bindListeners = function() {
 		Backbone.on('current-mediator', function(mediatorName){
-			if (this.mediatorName === 'boards'){
+			if (mediatorName !== 'board'){
 				this.showGoToBoardsView();
 			} else {
 				this.hideGoToBoardsView();
 			}
+		}, this);
+
+		Backbone.once('current-mediator', function(){
+			this.regions.headerRight.show(this.getUserView());
 		}, this);
 	};
 
@@ -40,12 +44,13 @@ define(['./GoToBoardsView', './UserView', './User', 'backbone'],
 	HeaderMediator.prototype.getUserView = function() {
 		if (!this.user){
 			this.user = {
-				model: new User()
+				model: new User(window.__data.user)
 			};
 		}
 		this.user.view = new UserView({
 			model: this.user.model
 		});
+		return this.user.view;
 	};
 
 	return new HeaderMediator();

@@ -1,7 +1,5 @@
-define(['../board/boardMediator', '../task/taskMediator', 'marionette', 'backbone',
-	'../header/headerMediator'], 
-	function(boardMediator, taskMediator, Marionette, Backbone,
-		headerMediator){
+define(['../board/boardMediator', '../task/taskMediator', 'marionette', 'backbone'], 
+	function(boardMediator, taskMediator, Marionette, Backbone){
 	
 	var AppMediator = function(){
 		this.initializeRegion();
@@ -25,8 +23,6 @@ define(['../board/boardMediator', '../task/taskMediator', 'marionette', 'backbon
 	AppMediator.prototype.showTasks = function(route){
 		var taskLayout = taskMediator.getLayout(route);
 		this.regions.content.show(taskLayout);
-		var goToBoardsView = headerMediator.getGoToBoardsView();
-		this.regions.headerLeft.show(goToBoardsView);
 		Backbone.trigger('current-mediator', 'task');
 	};
 

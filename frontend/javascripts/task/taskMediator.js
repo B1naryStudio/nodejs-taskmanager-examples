@@ -12,19 +12,27 @@ define(['../units/Mediator', 'backbone', './TaskCompositeView',
 	TaskMediator.prototype.id = 'task';
 
 	TaskMediator.prototype.getLayout = function(route) {
-		var self = this;
 		this.boardId = route;
 		if (!this.layout){
-			this.layout = new TaskLayout();
-			this.layout.on('show', function(){
-				self.regionManager = new Marionette.RegionManager();
-				self.regions = self.regionManager.addRegions({
-					taskContent: '#task-content'
-				});
-				var matched = self.matchRoute(route);
-			});
+			this.initializeLayout(route);
 		} 
 		return this.layout;
+	};
+
+	TaskMediator.prototype.initializeLayout = function(route) {
+		var self = this;
+
+		this.layout = new TaskLayout();
+		this.layout.on('show', function(){
+			self.regionManager = new Marionette.RegionManager();
+			self.regions = self.regionManager.addRegions({
+				taskContent: '#task-content'
+			});
+			var matched = self.matchRoute(route);
+		});
+		this.layout.on('destroy', function(){
+			delete self.layout;
+		});
 	};
 
 	TaskMediator.prototype.getTasksView = function() {

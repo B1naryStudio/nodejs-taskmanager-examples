@@ -12,19 +12,27 @@ define(['../units/Mediator', 'backbone', './Board', './BoardCompositeView',
 	BoardMediator.prototype.id = 'board';
 
 	BoardMediator.prototype.getLayout = function(route) {
-		var self = this;
-
 		if (!this.layout){
-			this.layout = new BoardLayout();
-			this.layout.on('show', function(){
-				self.regionManager = new Marionette.RegionManager();
-				self.regions = self.regionManager.addRegions({
-					boardContent: '#board-content'
-				});
-				var matched = self.matchRoute(route);
-			});
+			this.initializeLayout(route);
 		} 
 		return this.layout;
+	};
+
+	BoardMediator.prototype.initializeLayout = function(route) {
+		var self = this;
+
+		this.layout = new BoardLayout();
+		this.layout.on('show', function(){
+			self.regionManager = new Marionette.RegionManager();
+			self.regions = self.regionManager.addRegions({
+				boardContent: '#board-content'
+			});
+			var matched = self.matchRoute(route);
+		});
+		
+		self.layout.on('destroy', function(){
+			delete self.layout;
+		});
 	};
 
 	BoardMediator.prototype.getBoardsView = function() {

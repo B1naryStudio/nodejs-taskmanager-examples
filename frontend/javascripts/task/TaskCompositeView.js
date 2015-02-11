@@ -3,7 +3,6 @@ define(['marionette', './TaskItemView', './AddNewTaskView', './Task'],
 
 	var TaskCompositeView = Marionette.CompositeView.extend({
 		childView: TaskItemView,
-		childViewContainer: '#tasks-container',
 		template: '#tasks-template',
 
 		ui:{

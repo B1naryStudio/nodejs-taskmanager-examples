@@ -8,11 +8,14 @@ head
 	link(rel="stylesheet", href="/bower_components/font-awesome/css/font-awesome.css")
 body
 	#header
+		#header-left
+			
 	#content
 		block content
 	#footer
 
 	include ./board/layout
 	include ./task/layout
+	include ./header/layout
 
 	script(src="/javascripts/libs/require.js", data-main="/javascripts/main.js")

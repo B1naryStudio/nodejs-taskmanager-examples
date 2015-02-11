@@ -1,27 +1,32 @@
-define(['../board/boardMediator', '../task/taskMediator', 'backbone'], 
-	function(boardMediator, taskMediator, Backbone){
+define(['../board/boardMediator', '../task/taskMediator', 'marionette', 'backbone',
+	'../header/headerMediator'], 
+	function(boardMediator, taskMediator, Marionette, Backbone,
+		headerMediator){
 	
 	var AppMediator = function(){
 		this.initializeRegion();
 	};
 
 	AppMediator.prototype.initializeRegion = function() {
-		var Region = Marionette.Region.extend({
-			el: '#content'
+		this.regionManager = new Marionette.RegionManager();
+		this.regions = this.regionManager.addRegions({
+			content: '#content',
+			headerLeft: '#header-left'
 		});
-
-		this.region = new Region();
 	};
 
 	AppMediator.prototype.showBoards = function(route) {
 		var boardLayout = boardMediator.getLayout(route);
-		this.region.show(boardLayout);
+		this.regions.content.show(boardLayout);
+		this.regions.headerLeft.reset();
 		Backbone.trigger('current-mediator', 'board');
 	};
 
 	AppMediator.prototype.showTasks = function(route){
 		var taskLayout = taskMediator.getLayout(route);
-		this.region.show(taskLayout);
+		this.regions.content.show(taskLayout);
+		var goToBoardsView = headerMediator.getGoToBoardsView();
+		this.regions.headerLeft.show(goToBoardsView);
 		Backbone.trigger('current-mediator', 'task');
 	};
 

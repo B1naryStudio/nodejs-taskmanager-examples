@@ -9,7 +9,7 @@ define(['marionette', '../app/context'], function(Marionette, context){
 		},
 
 		onClick: function(){
-			context.router.navigate('board/'+ this.model.id);
+			context.router.navigate('board/'+ this.model.id, {trigger: true});
 		}
 	});
 

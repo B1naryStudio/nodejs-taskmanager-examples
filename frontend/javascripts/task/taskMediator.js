@@ -1,7 +1,7 @@
 define(['../units/Mediator', 'backbone', './TaskCompositeView',
-	'./TaskCollection', './TaskLayout'], 
+	'./TaskCollection', './TaskLayout', './rightPanel/RightPanelView'], 
 	function(Mediator, Backbone, TaskCompositeView,
-		TaskCollection, TaskLayout){
+		TaskCollection, TaskLayout, RightPanelView){
 
 	var TaskMediator = function(){
 		Mediator.prototype.constructor.call(this);
@@ -26,7 +26,8 @@ define(['../units/Mediator', 'backbone', './TaskCompositeView',
 		this.layout.on('show', function(){
 			self.regionManager = new Marionette.RegionManager();
 			self.regions = self.regionManager.addRegions({
-				taskContent: '#task-content'
+				taskContent: '#task-content',
+				rightPanel: '#task-right-panel'
 			});
 			var matched = self.matchRoute(route);
 		});
@@ -54,6 +55,7 @@ define(['../units/Mediator', 'backbone', './TaskCompositeView',
 	TaskMediator.prototype.showTasks = function() {
 		var tasksView = this.getTasksView();
 		this.regions.taskContent.show(tasksView);
+		this.regions.rightPanel.show(new RightPanelView());
 	};
 
 	TaskMediator.prototype.initializeRoutes = function() {

@@ -10,11 +10,17 @@ function BoardRepository (){
 BoardRepository.prototype = new Repository();
 
 BoardRepository.prototype.addTask = function(boardId, taskId, callback) {
-	var self = this;
 	this.model.findByIdAndUpdate({_id: ObjectId(boardId)}, 
 		{$push: {'tasks': taskId}}, 
-	    {safe: true, upsert: true},
-    callback);
+		{safe: true, upsert: true},
+	callback);
+};
+
+BoardRepository.prototype.findByIdAndAddUser = function(boardId, userId, callback) {
+	this.model.findByIdAndUpdate({_id: ObjectId(boardId)}, 
+		{$push: {'users': {userId: userId}}}, 
+		{safe: true, upsert: true},
+	callback);
 };
 
 BoardRepository.prototype.fieldsToPopulate = ['tasks'];

@@ -9,4 +9,11 @@ function UserRepository (){
 
 UserRepository.prototype = new Repository();
 
+UserRepository.prototype.findByEmailAndAddBoard = function(email, boardId, callback) {
+	this.model.findOneAndUpdate({email: email}, 
+		{$push: {'boards': boardId}}, 
+		{safe: true, upsert: true},
+	callback);
+};
+
 module.exports = new UserRepository();

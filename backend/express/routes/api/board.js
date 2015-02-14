@@ -1,5 +1,6 @@
 var router = require('express').Router();
 var boardRepository = require('../../repositories/board');
+var boardService = require('../../services/board');
 var isLoggedIn = require('../../middleware/isLoggedIn');
 var apiResponse = require('express-api-response');
 
@@ -35,6 +36,15 @@ router.get('/:id/task', isLoggedIn, function(req, res, next){
 		if (data){
 			res.data = data.tasks;
 		}
+		res.err = err;
+		next();
+	});
+}, apiResponse);
+
+router.post('/:id/user', isLoggedIn, function(req, res, next){
+	var userEmail = req.body.email;
+	boardService.addUser(req.params.id, userEmail, function(err, data){
+		res.data = data;
 		res.err = err;
 		next();
 	});

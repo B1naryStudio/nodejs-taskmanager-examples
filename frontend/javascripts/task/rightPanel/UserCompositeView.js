@@ -1,4 +1,5 @@
-define(['marionette', './UserItemView'], function(Marionette, UserItemView){
+define(['marionette', './UserItemView'], 
+	function(Marionette, UserItemView){
 
 	var UserCompositeView = Marionette.CompositeView.extend({
 		template: '#users-search-template',
@@ -18,7 +19,17 @@ define(['marionette', './UserItemView'], function(Marionette, UserItemView){
 			'click @ui.close': 'onClose'
 		},
 
+		childEvents: {
+			'add-user': 'onAddUser'
+		},
+
 		onClose: function(){
+			this.destroy();
+		},
+
+		onAddUser: function(el, email){
+			this.trigger('add-user', email);
+			this.collection.reset();
 			this.destroy();
 		},
 

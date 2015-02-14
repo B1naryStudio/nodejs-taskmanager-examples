@@ -1,5 +1,5 @@
-define(['marionette', './UserCollection', './UserCompositeView'], 
-	function(Marionette, UserCollection, UserCompositeView){
+define(['marionette', './UserCollection', './UserCompositeView', 'units/boardService'], 
+	function(Marionette, UserCollection, UserCompositeView, boardService){
 
 	var RightPanelView = Marionette.ItemView.extend({
 		template: '#right-panel-template',
@@ -9,10 +9,10 @@ define(['marionette', './UserCollection', './UserCompositeView'],
 		},
 
 		events: {
-			'click @ui.addUser': 'onAddUser'
+			'click @ui.addUser': 'onAddUserClick'
 		},
 
-		onAddUser: function(){
+		onAddUserClick: function(){
 			if (!this.user){
 				this.user = {
 					collection: new UserCollection()
@@ -29,6 +29,10 @@ define(['marionette', './UserCollection', './UserCompositeView'],
 					left: event.clientX
 				});
 			}
+			this.bindUserListeners();
+		},
+
+		bindUserListeners: function(){
 			this.user.view.on('change-text', function(text){
 				this.user.collection.setText(text);
 			}, this);
@@ -38,6 +42,15 @@ define(['marionette', './UserCollection', './UserCompositeView'],
 			this.user.view.on('destroy', function(){
 				delete this.user.view;
 			}, this);
+			this.user.view.on('add-user', this.onAddUser, this);
+		},
+
+		onAddUser: function(email){
+			boardService.addUser(this.options.boardId, email, function(err){
+				if (!err){
+
+				}
+			});
 		},
 
 		onDestroy: function(){

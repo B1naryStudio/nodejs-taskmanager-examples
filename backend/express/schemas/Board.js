@@ -10,8 +10,14 @@ var Board = new mongoose.Schema({
 	}],
 	isPrivate: Boolean,
 	users : [{
-		_id : ObjectId,
-		isAdmin : Boolean
+		userId: {
+			type : ObjectId,
+			ref: 'Board'
+		},
+		isAdmin : {
+			type: Boolean,
+			default: false
+		}
 	}],
 });
 

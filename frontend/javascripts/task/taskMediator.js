@@ -55,7 +55,9 @@ define(['../units/Mediator', 'backbone', './TaskCompositeView',
 	TaskMediator.prototype.showTasks = function() {
 		var tasksView = this.getTasksView();
 		this.regions.taskContent.show(tasksView);
-		this.regions.rightPanel.show(new RightPanelView());
+		this.regions.rightPanel.show(new RightPanelView({
+			boardId: this.boardId
+		}));
 	};
 
 	TaskMediator.prototype.initializeRoutes = function() {

@@ -23,14 +23,17 @@ define(['marionette', './UserCollection', './UserCompositeView'],
 					collection: this.user.collection,
 					model: new Backbone.Model()
 				});
-				
+
 				this.user.view.show({
 					top: event.clientY,
 					left: event.clientX
 				});
 			}
 			this.user.view.on('change-text', function(text){
-				this.user.collection.text = text;
+				this.user.collection.setText(text);
+			}, this);
+			this.user.view.on('reset', function(text){
+				this.user.collection.reset();
 			}, this);
 			this.user.view.on('destroy', function(){
 				delete this.user.view;

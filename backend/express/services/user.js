@@ -5,6 +5,18 @@ function UserService(){
 
 }
 
+UserService.prototype.getUsers = function(query, callback) {
+	var obj = {};
+	if (query.search){
+		obj.email = new RegExp(query.search, 'i');
+	}
+	
+	userRepository.findWhere(obj, function(err, data){
+		data = data.map(function(it){return it.getViewModel();});
+		callback(err, data);
+	});
+};
+
 UserService.prototype.createUser = function(data, callback) {
 	this.encodePassword(data.password, function(password){
 		data.password = password;

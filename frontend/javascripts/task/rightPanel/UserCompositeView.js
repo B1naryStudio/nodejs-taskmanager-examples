@@ -13,7 +13,7 @@ define(['marionette', './UserItemView'], function(Marionette, UserItemView){
 		},
 
 		events: {
-			'keydown @ui.userSearch': 'onChange',
+			'keyup @ui.userSearch': 'onChange',
 			'click @ui.userResult': 'onClose',
 			'click @ui.close': 'onClose'
 		},
@@ -27,7 +27,12 @@ define(['marionette', './UserItemView'], function(Marionette, UserItemView){
 				this.onClose();
 				return;
 			}
-			this.trigger('change-text', this.ui.userSearch.val());
+			var text = this.ui.userSearch.val();
+			if (text){
+				this.trigger('change-text', text);
+			} else {
+				this.trigger('reset');
+			}
 		},
 
 		show: function(coords){

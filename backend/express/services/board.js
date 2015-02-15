@@ -5,6 +5,12 @@ var BoardService = function(){
 
 };
 
+BoardService.prototype.findBoardsForUserId = function(user, callback) {
+	user.populate('boards', function(err, data){
+		callback(err, data ? data.boards : null);
+	});
+};
+
 BoardService.prototype.addUser = function(boardId, userEmail, callback) {
 	userRepository.findByEmailAndAddBoard(userEmail, boardId, function(err, data){
 		if (err) {

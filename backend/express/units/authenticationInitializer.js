@@ -21,7 +21,7 @@ module.exports = function () {
 				if (!user.isValidPassword(password)) {
 					return done(null, false, { message: 'Incorrect password.' });
 				}				
-				
+
 				return done(null, user);
 			});
 		}
@@ -33,7 +33,7 @@ module.exports = function () {
 	
 	passport.deserializeUser(function (id, done) {
 		userService.findById(id, function(err, user){
-			done(err, user ? user.getViewModel() : null);
+			done(err, user);
 		});
 	});
 };

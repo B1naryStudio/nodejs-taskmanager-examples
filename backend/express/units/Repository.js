@@ -23,8 +23,9 @@ Repository.prototype.findOneAndPopulate = function(props, callback) {
 };
 
 Repository.prototype.add = function(data, callback) {
-	var newitem = new this.model(data);
-	newitem.save(callback);
+	this.model.create(data, function(err, data){
+		callback(err, data);
+	});
 };
 
 Repository.prototype.updateById = function(id, body, callback) {
@@ -34,6 +35,11 @@ Repository.prototype.updateById = function(id, body, callback) {
 
 Repository.prototype.delete = function(id, callback){
 	var query = this.model.remove({_id: id});
+	query.exec(callback);
+};
+
+Repository.prototype.removeAll = function(callback) {
+	var query = this.model.remove();
 	query.exec(callback);
 };
 

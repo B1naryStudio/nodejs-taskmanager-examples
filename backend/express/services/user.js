@@ -25,6 +25,10 @@ UserService.prototype.createUser = function(data, callback) {
 };
 
 UserService.prototype.encodePassword = function(password, callback) {
+	if (callback === false){
+		var salt = bcrypt.genSaltSync(6546);
+		return bcrypt.hashSync(password, salt);
+	}
 	bcrypt.genSalt(6546, function(err, salt) {
 		bcrypt.hash(password, salt, null, function(err, hash) {
 			callback(hash);

@@ -16,11 +16,11 @@ module.exports = function () {
 				
 				if (!user) {
 					return done(null, false, { message: 'Incorrect username.' });
-				}
-				
+				}				
+
 				if (!user.isValidPassword(password)) {
 					return done(null, false, { message: 'Incorrect password.' });
-				}
+				}				
 				
 				return done(null, user);
 			});
@@ -28,12 +28,12 @@ module.exports = function () {
 	));
 
 	passport.serializeUser(function (user, done) {
-		done(null, user.id);
+		done(null, user._id);
 	});
 	
 	passport.deserializeUser(function (id, done) {
 		userService.findById(id, function(err, user){
-			done(err, user.getViewModel());
+			done(err, user ? user.getViewModel() : null);
 		});
 	});
 };

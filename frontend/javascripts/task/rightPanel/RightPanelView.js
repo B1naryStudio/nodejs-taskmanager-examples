@@ -1,5 +1,7 @@
-define(['marionette', './UserCollection', './UserCompositeView', 'units/boardService'], 
-	function(Marionette, UserCollection, UserCompositeView, boardService){
+define(['marionette', './userSearch/UserCollection', './userSearch/UserCompositeView', 
+	'units/boardService'], 
+	function(Marionette, UserCollection, UserCompositeView, 
+		boardService){
 
 	var RightPanelView = Marionette.ItemView.extend({
 		template: '#right-panel-template',

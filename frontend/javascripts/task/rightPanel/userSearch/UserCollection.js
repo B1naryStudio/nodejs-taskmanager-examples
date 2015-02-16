@@ -1,4 +1,4 @@
-define(['backbone', '../../header/User'], function(Backbone, User){
+define(['backbone', '../../../header/User'], function(Backbone, User){
 
 	var UserCollection = Backbone.Collection.extend({
 		model: User,

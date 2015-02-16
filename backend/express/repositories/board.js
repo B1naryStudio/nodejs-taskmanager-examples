@@ -23,6 +23,20 @@ BoardRepository.prototype.findByIdAndAddUser = function(boardId, userId, callbac
 	callback);
 };
 
+BoardRepository.prototype.findUsersByBoardId = function(boardId, callback) {
+	var query = this.model.findOne({_id: boardId});
+	query.populate('users.userId');
+	query.exec(function(err, data){
+		var res;
+		if (data){
+			res = data.users.map(function(el){
+				return el.userId;
+			});
+		}
+		callback(err, res);
+	});
+};
+
 BoardRepository.prototype.fieldsToPopulate = ['tasks'];
 
 module.exports = new BoardRepository();

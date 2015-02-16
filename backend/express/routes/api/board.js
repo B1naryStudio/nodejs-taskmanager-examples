@@ -41,6 +41,14 @@ router.get('/:id/task', isLoggedIn, function(req, res, next){
 	});
 }, apiResponse);
 
+router.get('/:id/user', isLoggedIn, function(req, res, next){
+	boardRepository.findUsersByBoardId(req.params.id, function(err, data){
+		res.data = data;
+		res.err = err;
+		next();
+	});
+}, apiResponse);
+
 router.post('/:id/user', isLoggedIn, function(req, res, next){
 	var userEmail = req.body.email;
 	boardService.addUser(req.params.id, userEmail, function(err, data){

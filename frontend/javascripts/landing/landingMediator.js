@@ -9,7 +9,7 @@ define(['../units/Mediator', 'backbone', './Board', './BoardCompositeView',
 
 	LandingMediator.prototype = new Mediator();
 
-	LandingMediator.prototype.id = 'board';
+	LandingMediator.prototype.id = 'landing';
 
 	LandingMediator.prototype.getLayout = function(route) {
 		if (!this.layout){

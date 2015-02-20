@@ -19,13 +19,13 @@ define(['../landing/landingMediator', '../board/boardMediator', '../header/heade
 		var landingLayout = landingMediator.getLayout(route);
 		this.regions.content.show(landingLayout);
 		this.regions.headerLeft.reset();
-		Backbone.trigger('current-mediator', 'board');
+		Backbone.trigger('current-mediator', 'landing');
 	};
 
 	AppMediator.prototype.showTasks = function(route){
 		var boardLayout = boardMediator.getLayout(route);
 		this.regions.content.show(boardLayout);
-		Backbone.trigger('current-mediator', 'task');
+		Backbone.trigger('current-mediator', 'board');
 	};
 
 	return new AppMediator();

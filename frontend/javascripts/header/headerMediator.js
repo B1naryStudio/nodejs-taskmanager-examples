@@ -16,7 +16,7 @@ define(['./GoToBoardsView', './UserView', './User', 'backbone'],
 
 	HeaderMediator.prototype.bindListeners = function() {
 		Backbone.on('current-mediator', function(mediatorName){
-			if (mediatorName !== 'board'){
+			if (mediatorName !== 'landing'){
 				this.showGoToBoardsView();
 			} else {
 				this.hideGoToBoardsView();

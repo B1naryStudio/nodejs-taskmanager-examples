@@ -5,8 +5,7 @@ define(['marionette', './UserItemView'],
 		template: '#users-search-template',
 		childView: UserItemView,
 		childViewContainer: '#users-search-container',
-		id: 'users-modal',
-
+		el: '#users-modal',
 		ui: {
 			'userSearch': '#user-search',
 			'close': '#users-modal-close',
@@ -21,6 +20,15 @@ define(['marionette', './UserItemView'],
 
 		childEvents: {
 			'add-user': 'onAddUser'
+		},
+
+		show: function(){
+			this.render();
+			this.$el.toggleClass('show', true);
+		},
+
+		onDestroy: function(){
+			this.$el.toggleClass('show', false);
 		},
 
 		onClose: function(){
@@ -44,15 +52,6 @@ define(['marionette', './UserItemView'],
 			} else {
 				this.trigger('reset');
 			}
-		},
-
-		show: function(coords){
-			this.render();
-			this.$el.appendTo($('body'));
-			this.$el.css({
-				top: coords.top,
-				left: coords.left
-			});
 		}
 
 	});

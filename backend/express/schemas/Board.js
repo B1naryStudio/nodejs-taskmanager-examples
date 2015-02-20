@@ -12,7 +12,7 @@ var Board = new mongoose.Schema({
 	users : [{
 		userId: {
 			type : ObjectId,
-			ref: 'Board'
+			ref: 'User'
 		},
 		isAdmin : {
 			type: Boolean,

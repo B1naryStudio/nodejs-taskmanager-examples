@@ -1,24 +1,34 @@
 define(['marionette', './userSearch/UserCollection', './userSearch/UserCompositeView', 
 	'units/boardService', './collaborators/CollaboratorCollection', 
-	'./collaborators/CollaboratorCollectionView'], 
+	'./collaborators/CollaboratorCollectionView', 'app/context'], 
 	function(Marionette, UserCollection, UserCompositeView, 
 		boardService, CollaboratorCollection, 
-		CollaboratorCollectionView){
+		CollaboratorCollectionView, context){
 
 	var RightPanelView = Marionette.ItemView.extend({
 		template: '#right-panel-template',
 
 		ui: {
 			'addUser': '#rp-add-user',
-			'collaboratorsContainer': '#collaborators-container'
+			'collaboratorsContainer': '#collaborators-container',
+			'removeBoard': '#rp-remove-board'
 		},
 
 		events: {
-			'click @ui.addUser': 'onAddUserClick'
+			'click @ui.addUser': 'onAddUserClick',
+			'click @ui.removeBoard': 'onRemoveBoard'
 		},
 
 		onRender: function(){
 			this.showCollaboratorView();
+		},
+
+		onRemoveBoard: function(){
+			boardService.removeBoard(this.options.boardId, function(err){
+				if (!err){
+					context.router.navigate('/', {trigger: true});
+				}
+			});
 		},
 
 		showCollaboratorView: function(){
@@ -50,10 +60,7 @@ define(['marionette', './userSearch/UserCollection', './userSearch/UserComposite
 					model: new Backbone.Model()
 				});
 
-				this.user.view.show({
-					top: event.clientY,
-					left: event.clientX
-				});
+				this.user.view.show();
 			}
 			this.bindUserListeners();
 		},

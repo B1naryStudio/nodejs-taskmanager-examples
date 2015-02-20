@@ -9,8 +9,8 @@ function UserRepository (){
 
 UserRepository.prototype = new Repository();
 
-UserRepository.prototype.findByEmailAndAddBoard = function(email, boardId, callback) {
-	this.model.findOneAndUpdate({email: email}, 
+UserRepository.prototype.findOneAndAddBoard = function(queryObj, boardId, callback) {
+	this.model.findOneAndUpdate(queryObj, 
 		{$push: {'boards': boardId}}, 
 		{safe: true, upsert: true},
 	callback);

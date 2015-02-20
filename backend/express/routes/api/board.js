@@ -14,10 +14,8 @@ router.get('/', isLoggedIn, function(req, res, next){
 
 router.post('/', isLoggedIn, function(req, res, next){
 	var obj = req.body;
-	boardRepository.add(obj, function(err, data){
-		if (!err && data.rowCount){
-			res.data = data.rows[0];
-		}
+	boardService.add(obj, req.user._id, function(err, data){
+		res.data = data;
 		res.err = err;
 		next();
 	});

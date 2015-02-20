@@ -1,4 +1,5 @@
 var mongoose = require('mongoose');
+var ObjectId = mongoose.Types.ObjectId;
 
 var Repository = function(){
 
@@ -33,8 +34,11 @@ Repository.prototype.updateById = function(id, body, callback) {
 	query.exec(callback);
 };
 
-Repository.prototype.delete = function(id, callback){
-	var query = this.model.remove({_id: id});
+Repository.prototype.findAndDelete = function(queryObj, callback){
+	if (queryObj._id){
+		queryObj._id = ObjectId(queryObj._id);
+	}
+	var query = this.model.remove(queryObj);
 	query.exec(callback);
 };
 

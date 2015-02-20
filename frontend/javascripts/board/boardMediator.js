@@ -41,7 +41,11 @@ define(['../units/Mediator', 'backbone', './Board', './BoardCompositeView',
 				this.board = {};
 				this.board.collection = new BoardCollection();
 			}
-			this.board.collection.fetch();
+			this.board.collection.fetch({
+				error: function(){
+					self.board.collection.reset();
+				}
+			});
 			this.board.view = new BoardCompositeView({
 				collection: this.board.collection,
 				model: new Board()

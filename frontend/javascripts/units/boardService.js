@@ -21,6 +21,26 @@ define([], function(){
 		});
 	};
 
+	BoardService.prototype.removeBoard = function(boardId, callback) {
+		var url = '/api/board/' + boardId;
+		$.ajax({
+			method: 'DELETE',
+			url: url,
+
+			success: function(){
+				if (callback){
+					callback(null);
+				}
+			},
+
+			error: function(jqXHR, status, err){
+				if (callback){
+					callback(err);
+				}
+			}
+		});
+	};
+
 	return new BoardService();
 
 });

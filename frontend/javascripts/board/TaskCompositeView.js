@@ -1,5 +1,5 @@
-define(['marionette', './TaskItemView', './AddNewTaskView', './Task'], 
-	function(Marionette, TaskItemView, AddNewTaskView, Task){
+define(['marionette', './TaskItemView', './AddNewTaskView', './Task', 'app/context'], 
+	function(Marionette, TaskItemView, AddNewTaskView, Task, context){
 
 	var TaskCompositeView = Marionette.CompositeView.extend({
 		childView: TaskItemView,
@@ -14,6 +14,10 @@ define(['marionette', './TaskItemView', './AddNewTaskView', './Task'],
 
 		events: {
 			'click @ui.addNewTask': 'addNewTask'
+		},
+
+		childEvents: {
+			'to-task-view': 'onTaskClick'
 		},
 
 		addNewTask: function(event){
@@ -32,6 +36,10 @@ define(['marionette', './TaskItemView', './AddNewTaskView', './Task'],
 				top: event.clientY,
 				left: event.clientX
 			});
+		},
+
+		onTaskClick: function(el, id){
+			context.router.navigate('board/' + this.collection.boardId + '/task/'+ id);
 		},
 
 		onDestroy: function(){

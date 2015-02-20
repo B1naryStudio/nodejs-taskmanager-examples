@@ -1,0 +1,11 @@
+script#task-modal-template(type="text/template")
+	#t-header
+		#t-name {{- name }}
+		#t-close
+	#t-body
+		#t-left
+			#t-description {{- description }}
+		#t-right
+			button#t-add-members.info Add members
+			button#t-archive.success Archive
+			button#t-remove.alert Remove

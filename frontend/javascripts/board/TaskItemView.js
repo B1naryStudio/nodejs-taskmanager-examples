@@ -1,4 +1,4 @@
-define(['marionette', '../app/context'], function(Marionette, context){
+define(['marionette'], function(Marionette){
 
 	var TaskItemView = Marionette.ItemView.extend({
 		template: '#task-item-view',
@@ -9,7 +9,7 @@ define(['marionette', '../app/context'], function(Marionette, context){
 		},
 
 		onClick: function(){
-			context.router.navigate('task/'+ this.model.id);
+			this.trigger('to-task-view', this.model.get('_id'));
 		}
 	});
 

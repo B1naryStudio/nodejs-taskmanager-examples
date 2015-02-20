@@ -7,4 +7,6 @@ router.get('/', isLoggedIn, renderWithData);
 
 router.get('/:id', isLoggedIn, renderWithData);
 
+router.get('/:id/task/:task_id', isLoggedIn, renderWithData);
+
 module.exports = router;

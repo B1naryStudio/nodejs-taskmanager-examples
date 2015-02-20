@@ -28,6 +28,13 @@ define(['../landing/landingMediator', '../board/boardMediator', '../header/heade
 		Backbone.trigger('current-mediator', 'board');
 	};
 
+	AppMediator.prototype.showTask = function(boardId, taskId){
+		var boardLayout = boardMediator.getLayout(boardId);
+		this.regions.content.show(boardLayout);
+		boardMediator.showTask(taskId);
+		Backbone.trigger('current-mediator', 'board');
+	};
+
 	return new AppMediator();
 
 });

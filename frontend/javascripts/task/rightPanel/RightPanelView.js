@@ -1,17 +1,41 @@
 define(['marionette', './userSearch/UserCollection', './userSearch/UserCompositeView', 
-	'units/boardService'], 
+	'units/boardService', './collaborators/CollaboratorCollection', 
+	'./collaborators/CollaboratorCollectionView'], 
 	function(Marionette, UserCollection, UserCompositeView, 
-		boardService){
+		boardService, CollaboratorCollection, 
+		CollaboratorCollectionView){
 
 	var RightPanelView = Marionette.ItemView.extend({
 		template: '#right-panel-template',
 
 		ui: {
-			'addUser': '#rp-add-user'
+			'addUser': '#rp-add-user',
+			'collaboratorsContainer': '#collaborators-container'
 		},
 
 		events: {
 			'click @ui.addUser': 'onAddUserClick'
+		},
+
+		onRender: function(){
+			this.showCollaboratorView();
+		},
+
+		showCollaboratorView: function(){
+			if (!this.collaborator){
+				this.collaborator = {
+					collection: new CollaboratorCollection()
+				};
+				this.collaborator.collection.setBoard(this.options.boardId);
+			}
+			if (!this.collaborator.view){
+				this.collaborator.view = new CollaboratorCollectionView({
+					collection: this.collaborator.collection
+				});
+
+				this.collaborator.view.render();
+				this.collaborator.view.$el.appendTo(this.ui.collaboratorsContainer);
+			}
 		},
 
 		onAddUserClick: function(){
@@ -57,7 +81,9 @@ define(['marionette', './userSearch/UserCollection', './userSearch/UserComposite
 
 		onDestroy: function(){
 			this.user.view.destroy();
+			this.collaborator.view.destroy();
 			delete this.user.view;
+			delete this.collaborator.view;
 		}
 	});
 

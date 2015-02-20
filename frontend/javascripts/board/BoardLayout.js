@@ -1,7 +1,7 @@
 define(['marionette'], function(Marionette){
 
 	var BoardLayout = Marionette.LayoutView.extend({
-		template: '#board-layout-template'
+		template: '#task-layout-template'
 	});
 
 	return BoardLayout;

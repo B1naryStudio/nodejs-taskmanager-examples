@@ -1,6 +1,6 @@
-define(['../board/boardMediator', '../task/taskMediator', '../header/headerMediator',
+define(['../landing/landingMediator', '../board/boardMediator', '../header/headerMediator',
 	'marionette', 'backbone'], 
-	function(boardMediator, taskMediator, headerMediator,
+	function(landingMediator, boardMediator, headerMediator,
 		Marionette, Backbone){
 	
 	var AppMediator = function(){
@@ -16,15 +16,15 @@ define(['../board/boardMediator', '../task/taskMediator', '../header/headerMedia
 	};
 
 	AppMediator.prototype.showBoards = function(route) {
-		var boardLayout = boardMediator.getLayout(route);
-		this.regions.content.show(boardLayout);
+		var landingLayout = landingMediator.getLayout(route);
+		this.regions.content.show(landingLayout);
 		this.regions.headerLeft.reset();
 		Backbone.trigger('current-mediator', 'board');
 	};
 
 	AppMediator.prototype.showTasks = function(route){
-		var taskLayout = taskMediator.getLayout(route);
-		this.regions.content.show(taskLayout);
+		var boardLayout = boardMediator.getLayout(route);
+		this.regions.content.show(boardLayout);
 		Backbone.trigger('current-mediator', 'task');
 	};
 

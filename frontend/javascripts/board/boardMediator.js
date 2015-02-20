@@ -1,7 +1,7 @@
-define(['../units/Mediator', 'backbone', './Board', './BoardCompositeView',
-	'./BoardCollection', './BoardLayout'], 
-	function(Mediator, Backbone, Board, BoardCompositeView,
-		BoardCollection, BoardLayout){
+define(['../units/Mediator', 'backbone', './TaskCompositeView',
+	'./TaskCollection', './BoardLayout', './rightPanel/RightPanelView'], 
+	function(Mediator, Backbone, TaskCompositeView,
+		TaskCollection, BoardLayout, RightPanelView){
 
 	var BoardMediator = function(){
 		Mediator.prototype.constructor.call(this);
@@ -12,6 +12,7 @@ define(['../units/Mediator', 'backbone', './Board', './BoardCompositeView',
 	BoardMediator.prototype.id = 'board';
 
 	BoardMediator.prototype.getLayout = function(route) {
+		this.boardId = route;
 		if (!this.layout){
 			this.initializeLayout(route);
 		} 
@@ -25,43 +26,43 @@ define(['../units/Mediator', 'backbone', './Board', './BoardCompositeView',
 		this.layout.on('show', function(){
 			self.regionManager = new Marionette.RegionManager();
 			self.regions = self.regionManager.addRegions({
-				boardContent: '#board-content'
+				taskContent: '#task-content',
+				rightPanel: '#task-right-panel'
 			});
 			var matched = self.matchRoute(route);
 		});
-		
-		self.layout.on('destroy', function(){
+		this.layout.on('destroy', function(){
 			delete self.layout;
 		});
 	};
 
-	BoardMediator.prototype.getBoardsView = function() {
+	BoardMediator.prototype.getTasksView = function() {
 			var self = this;
-			if (!this.board){
-				this.board = {};
-				this.board.collection = new BoardCollection();
+			if (!this.task){
+				this.task = {};
+				this.task.collection = new TaskCollection();
 			}
-			this.board.collection.fetch({
-				error: function(){
-					self.board.collection.reset();
-				}
-			});
-			this.board.view = new BoardCompositeView({
-				collection: this.board.collection,
-				model: new Board()
+			this.task.collection.boardId = this.boardId;
+			this.task.collection.fetch();
+			this.task.view = new TaskCompositeView({
+				collection: this.task.collection,
+				model: new Backbone.Model()
 			});
 
-			return this.board.view;
+			return this.task.view;
 	};
 
-	BoardMediator.prototype.showBoards = function() {
-		var boardsView = this.getBoardsView();
-		this.regions.boardContent.show(boardsView);
+	BoardMediator.prototype.showTasks = function() {
+		var tasksView = this.getTasksView();
+		this.regions.taskContent.show(tasksView);
+		this.regions.rightPanel.show(new RightPanelView({
+			boardId: this.boardId
+		}));
 	};
 
 	BoardMediator.prototype.initializeRoutes = function() {
 		this.routes = {
-			'': 'showBoards'
+			'': 'showTasks'
 		};
 	};
 

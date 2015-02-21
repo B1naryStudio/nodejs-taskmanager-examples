@@ -1,8 +1,21 @@
 html, body
 	margin: 0
 	padding: 0
-	height: auto !important
 
 #content
 	margin-top: 40px
 	padding-top: 10px
+	
+#background
+	display: none
+	background: gray
+	opacity: 0.4
+	position: absolute
+	width: 100%
+	height: 100%
+	top: 0px
+	left: 0px
+	
+	&.show
+		display: block
+		

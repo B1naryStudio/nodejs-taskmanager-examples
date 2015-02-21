@@ -1,9 +1,9 @@
 define(['../units/Mediator', 'backbone', './TaskCompositeView',
 	'./TaskCollection', './BoardLayout', './rightPanel/RightPanelView',
-	'../task/Task', '../task/TaskView'], 
+	'../task/Task', '../task/TaskView', 'app/context'], 
 	function(Mediator, Backbone, TaskCompositeView,
 		TaskCollection, BoardLayout, RightPanelView,
-		Task, TaskView){
+		Task, TaskView, context){
 
 	var BoardMediator = function(){
 		Mediator.prototype.constructor.call(this);
@@ -33,13 +33,13 @@ define(['../units/Mediator', 'backbone', './TaskCompositeView',
 			});
 			var matched = self.matchRoute(route);
 		});
-		this.layout.on('destroy', this.onDestroy, this);
+		this.listenTo(this.layout, 'destroy', this.onDestroy, this);
 	};
 
 	BoardMediator.prototype.onDestroy = function() {
-		delete self.layout;
-		if (self.taskView){
-			self.taskView.destroy();
+		delete this.layout;
+		if (this.taskView){
+			this.taskView.destroy();
 		}
 	};
 
@@ -75,6 +75,9 @@ define(['../units/Mediator', 'backbone', './TaskCompositeView',
 			model: this.fullTask
 		});
 		this.taskView.show();
+		this.listenTo(this.taskView, 'destroy', function(){
+			context.router.navigate('board/' + this.boardId, {trigger: true});
+		}, this);
 		this.fullTask.fetch();
 	};
 

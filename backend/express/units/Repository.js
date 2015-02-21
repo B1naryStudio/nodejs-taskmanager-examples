@@ -29,8 +29,11 @@ Repository.prototype.add = function(data, callback) {
 	});
 };
 
-Repository.prototype.updateById = function(id, body, callback) {
-	var query = this.model.findOneAndUpdate({_id: id}, body);
+Repository.prototype.findOneAndUpdate = function(queryObj, body, callback) {
+	if (queryObj && queryObj._id){
+		queryObj._id = ObjectId(queryObj._id);
+	}
+	var query = this.model.findOneAndUpdate(queryObj, body);
 	query.exec(callback);
 };
 

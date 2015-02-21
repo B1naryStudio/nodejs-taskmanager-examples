@@ -39,7 +39,9 @@ define(['marionette', './TaskItemView', './AddNewTaskView', './Task', 'app/conte
 		},
 
 		onTaskClick: function(el, id){
-			context.router.navigate('board/' + this.collection.boardId + '/task/'+ id);
+			context.router.navigate('board/' + this.collection.boardId + '/task/'+ id,{
+				trigger: true
+			});
 		},
 
 		onDestroy: function(){

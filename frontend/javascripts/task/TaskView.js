@@ -13,16 +13,26 @@ define(['marionette'], function(Marionette){
 		},
 
 		events: {
-			'change @ui.name': 'onNameChange',
-			'change @ui.description': 'onDescriptionChange',
+			'blur @ui.name': 'onNameChange',
+			'blur @ui.description': 'onDescriptionChange',
 			'click @ui.addMembers': 'addMembers',
 			'click @ui.archive': 'archive',
-			'click @ui.remove': 'remove'
+			'click @ui.remove': 'onRemove'
+		},
+
+		modelEvents: {
+			'sync': 'render'
+		},
+
+		initialize: function(){
+			this.background = $('#background');
+			this.background.on('click', this.hide.bind(this));
 		},
 
 		show: function(){
 			this.render();
 			this.$el.appendTo($('body'));
+			this.showBackground();
 		},
 
 		hide: function(){
@@ -30,7 +40,7 @@ define(['marionette'], function(Marionette){
 		},
 
 		onNameChange: function(){
-			var name = this.ui.name.val();
+			var name = this.ui.name.text();
 			if (name){
 				this.model.set('name', name);
 				this.model.save();
@@ -38,11 +48,9 @@ define(['marionette'], function(Marionette){
 		},
 
 		onDescriptionChange: function(){
-			var description = this.ui.description.val();
-			if (description){
-				this.model.set('description', description);
-				this.model.save();
-			}
+			var description = this.ui.description.text();
+			this.model.set('description', description);
+			this.model.save();
 		},
 
 		addMembers: function(){
@@ -54,9 +62,19 @@ define(['marionette'], function(Marionette){
 			this.model.save();
 		},
 
-		remove: function(){
+		onRemove: function(){
 			this.model.destroy();
+		},
+
+		showBackground: function(){
+			this.background.addClass('show');
+		},
+
+		onDestroy: function(){
+			this.background.removeClass('show');			
 		}
+
+
 	});
 
 	return TaskView;

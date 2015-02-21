@@ -23,7 +23,7 @@ router.post('/', isLoggedIn, function(req, res, next){
 
 
 router.get('/:id', isLoggedIn, function(req, res, next){
-	taskRepository.findOne({id: req.params.id}, function(err, data){
+	taskRepository.findOne({_id: req.params.id}, function(err, data){
 		res.data = data;
 		res.err = err;
 		next();
@@ -31,7 +31,7 @@ router.get('/:id', isLoggedIn, function(req, res, next){
 }, apiResponse);
 
 router.delete('/:id', isLoggedIn, function(req, res, next){
-	taskRepository.findAndDelete({id: req.params.id}, function(err, data){
+	taskRepository.findAndDelete({_id: req.params.id}, function(err, data){
 		res.err = err;
 		next();
 	});
@@ -39,7 +39,7 @@ router.delete('/:id', isLoggedIn, function(req, res, next){
 
 router.put('/:id', isLoggedIn, function(req, res, next){
 	var obj = req.body;
-	taskRepository.findOneAndUpdate({id: Number(req.params.id)}, obj, function(err, data){
+	taskRepository.findOneAndUpdate({_id: req.params.id}, obj, function(err, data){
 		res.err = err;
 		next();
 	});

@@ -1,11 +1,11 @@
 script#task-modal-template(type="text/template")
-	#t-header
-		#t-name {{- name }}
+	#t-headern
+		#t-name(contenteditable) {{- name }}
 		#t-close
 	#t-body
 		#t-left
-			#t-description {{- description }}
+			#t-description(contenteditable) {{- description ? description : "Description..."}}
 		#t-right
-			button#t-add-members.info Members
-			button#t-archive.success Archive
-			button#t-remove.alert Remove
+			button#t-add-members.t-right-button.info Members
+			button#t-archive.t-right-button.success Archive
+			button#t-remove.t-right-button.alert Remove

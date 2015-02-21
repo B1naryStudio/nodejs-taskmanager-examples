@@ -24,7 +24,7 @@ router.post('/', isLoggedIn, function(req, res, next){
 
 router.get('/:id', isLoggedIn, function(req, res, next){
 	taskRepository.findOne({id: req.params.id}, function(err, data){
-		res.data = data.getViewModel();
+		res.data = data;
 		res.err = err;
 		next();
 	});

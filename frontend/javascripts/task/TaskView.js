@@ -1,7 +1,7 @@
 define(['marionette'], function(Marionette){
 	var TaskView = Marionette.ItemView.extend({
 		template: '#task-modal-template',
-		id: '#task-modal',
+		id: 'task-modal',
 
 		ui: {
 			'name': '#t-name',
@@ -18,6 +18,15 @@ define(['marionette'], function(Marionette){
 			'click @ui.addMembers': 'addMembers',
 			'click @ui.archive': 'archive',
 			'click @ui.remove': 'remove'
+		},
+
+		show: function(){
+			this.render();
+			this.$el.appendTo($('body'));
+		},
+
+		hide: function(){
+			this.destroy();
 		},
 
 		onNameChange: function(){

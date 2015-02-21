@@ -75,7 +75,7 @@ define(['../units/Mediator', 'backbone', './TaskCompositeView',
 			model: this.fullTask
 		});
 		this.taskView.show();
-		this.fetch();
+		this.fullTask.fetch();
 	};
 
 	BoardMediator.prototype.initializeRoutes = function() {

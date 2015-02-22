@@ -9,7 +9,8 @@ define(['marionette'], function(Marionette){
 			'description': '#t-description',
 			'addMembers': '#t-add-members',
 			'archive': '#t-archive',
-			'remove': '#t-remove'
+			'remove': '#t-remove',
+			'status': '#t-status'
 		},
 
 		events: {
@@ -17,7 +18,8 @@ define(['marionette'], function(Marionette){
 			'blur @ui.description': 'onDescriptionChange',
 			'click @ui.addMembers': 'addMembers',
 			'click @ui.archive': 'archive',
-			'click @ui.remove': 'onRemove'
+			'click @ui.remove': 'onRemove',
+			'change @ui.status': 'onStatusChange'
 		},
 
 		modelEvents: {
@@ -33,6 +35,11 @@ define(['marionette'], function(Marionette){
 			this.render();
 			this.$el.appendTo($('body'));
 			this.showBackground();
+		},
+
+		onRender: function(){
+			var el = this.$('[value="' + this.model.get('status') + '"]');
+			el.attr('selected', 'selected');
 		},
 
 		hide: function(){
@@ -72,6 +79,13 @@ define(['marionette'], function(Marionette){
 
 		onDestroy: function(){
 			this.background.removeClass('show');			
+		},
+
+		onStatusChange: function(){
+			var status = this.ui.status.val();
+			this.model.set('status', status);
+			this.model.save();
+			return true;
 		}
 
 

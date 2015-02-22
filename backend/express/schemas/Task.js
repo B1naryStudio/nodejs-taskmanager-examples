@@ -3,7 +3,7 @@ var ObjectId = mongoose.Schema.ObjectId;
 
 var Task = new mongoose.Schema({
 	name : String,
-	decription : String,
+	description : String,
 	assignee :  {
 		type: ObjectId,
 		ref: 'User'

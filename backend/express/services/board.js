@@ -1,5 +1,6 @@
 var boardRepository = require('../repositories/board');
 var userRepository = require('../repositories/user');
+var taskRepository = require('../repositories/task');
 
 var BoardService = function(){
 
@@ -22,6 +23,14 @@ BoardService.prototype.add = function(boardObject, userId, callback) {
 		});
 
 	});
+};
+
+BoardService.prototype.findUnarchivedTasks = function(boardId, callback) {
+	taskRepository.findByBoardId(boardId, {isArchived: false}, callback);
+};
+
+BoardService.prototype.findArchivedTasks = function(boardId, callback) {
+	taskRepository.findByBoardId(boardId, {isArchived: true}, callback);
 };
 
 BoardService.prototype.findBoardsForUserId = function(user, callback) {

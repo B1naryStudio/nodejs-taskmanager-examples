@@ -30,9 +30,19 @@ router.get('/:id', isLoggedIn, function(req, res, next){
 }, apiResponse);
 
 router.get('/:id/task', isLoggedIn, function(req, res, next){
-	boardRepository.findOneAndPopulate({_id: req.params.id}, function(err, data){
+	boardService.findUnarchivedTasks(req.params.id, function(err, data){
 		if (data){
-			res.data = data.tasks;
+			res.data = data;
+		}
+		res.err = err;
+		next();
+	});
+}, apiResponse);
+
+router.get('/:id/task/archived', isLoggedIn, function(req, res, next){
+	boardService.findArchivedTasks(req.params.id, function(err, data){
+		if (data){
+			res.data = data;
 		}
 		res.err = err;
 		next();

@@ -11,7 +11,24 @@ var Task = new mongoose.Schema({
 	status: {
 		type: String,
 		default: 'to-do'
+	},
+	isArchived: {
+		type: Boolean,
+		default: false
+	},
+	boardId: {
+		type: ObjectId,
+		ref: 'Board'
 	}
 });
+
+Task.methods.getViewModel = function(){
+	return {
+		name: this.name,
+		description: this.description,
+		status: this.status,
+		isArchived: this.isArchived
+	};
+};
 
 module.exports = mongoose.model('Task', Task);

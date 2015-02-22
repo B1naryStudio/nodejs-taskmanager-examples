@@ -62,9 +62,17 @@ define(['../units/Mediator', 'backbone', './TaskCompositeView',
 	BoardMediator.prototype.showTasks = function() {
 		var tasksView = this.getTasksView();
 		this.regions.taskContent.show(tasksView);
-		this.regions.rightPanel.show(new RightPanelView({
+
+		var rightPanelView = new RightPanelView({
 			boardId: this.boardId
-		}));
+		});
+
+		this.listenTo(rightPanelView, 'archived', function(archived){
+			this.task.collection.setArchived(archived);
+		}, this);
+
+		this.regions.rightPanel.show(rightPanelView);
+
 	};
 
 	BoardMediator.prototype.showTask = function(task_id) {

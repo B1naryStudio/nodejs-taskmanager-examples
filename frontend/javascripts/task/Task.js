@@ -5,7 +5,7 @@ define(['backbone'], function(Backbone){
 		defaults: {
 			name: undefined,
 			description: undefined,
-			archived: false,
+			isArchived: false,
 			status: undefined
 		},
 		urlRoot: '/api/task'

@@ -16,7 +16,9 @@ casual.define('task_', function()
 		name: casual.sentence,
 		description: casual.sentence,
 		assignee: casual.user_id_('task', false),
-		status: casual.task_status_
+		status: casual.task_status_,
+		boardId: casual.board_id_('task', false),
+		isArchived: casual.random_element(true, false)
 	};
 });
 

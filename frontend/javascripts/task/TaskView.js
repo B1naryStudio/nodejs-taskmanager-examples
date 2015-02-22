@@ -65,7 +65,7 @@ define(['marionette'], function(Marionette){
 		},
 
 		archive: function(){
-			this.model.set('archive', true);
+			this.model.set('isArchived', !this.model.get('isArchived'));
 			this.model.save();
 		},
 

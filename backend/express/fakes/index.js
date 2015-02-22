@@ -34,8 +34,8 @@ var generate = function(type, count, toBeCleaned, callback) {
 
 async.waterfall([
 	generate.bind(null, 'user', 10),
-	generate.bind(null, 'task', 2000),
-	generate.bind(null, 'board', 100)
+	generate.bind(null, 'board', 100),
+	generate.bind(null, 'task', 2000)
 ], function(err, data){
 	console.log('async', err);
 	process.exit();

@@ -4,10 +4,6 @@ var Task = require('./Task');
 
 var Board = new mongoose.Schema({
 	name: String,
-	tasks: [{
-		type: ObjectId,
-		ref: 'Task'
-	}],
 	isPrivate: Boolean,
 	users : [{
 		userId: {

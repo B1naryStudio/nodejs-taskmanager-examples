@@ -11,5 +11,5 @@ script#task-modal-template(type="text/template")
 				option(value="in-progress") In Progress
 				option(value="done") Done
 			button#t-add-members.t-right-button.info Members
-			button#t-archive.t-right-button.success Archive
+			button#t-archive.t-right-button.success {{ if (!isArchived) print('Archive'); else print('Unarchive')}}
 			button#t-remove.t-right-button.alert Remove

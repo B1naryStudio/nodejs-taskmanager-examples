@@ -10,10 +10,11 @@ casual.define('user_ids_collection_', function(maxNumber){
 			isAdmin: casual.random_element([true, false, false, false, false])
 		};
 	});
+	return users;
 });
 
-casual.define('board_id_', function(entityName) {
-	return utils.findId('board', entityName);
+casual.define('board_id_', function(entityName, unique) {
+	return utils.findId('board', entityName, unique);
 });
 
 casual.define('board_', function() {
@@ -21,7 +22,6 @@ casual.define('board_', function() {
 	return {
 		id: id,
 		name: casual.word,
-		tasks: casual.ids_collection_('task', 'board', 20),
 		isPrivate: casual.random_element([true, false]),
 		users: casual.user_ids_collection_(10)
 	};

@@ -11,12 +11,14 @@ define(['marionette', './userSearch/UserCollection', './userSearch/UserComposite
 		ui: {
 			'addUser': '#rp-add-user',
 			'collaboratorsContainer': '#collaborators-container',
-			'removeBoard': '#rp-remove-board'
+			'removeBoard': '#rp-remove-board',
+			'switchArchived': '#rp-switch-archived'
 		},
 
 		events: {
 			'click @ui.addUser': 'onAddUserClick',
-			'click @ui.removeBoard': 'onRemoveBoard'
+			'click @ui.removeBoard': 'onRemoveBoard',
+			'click @ui.switchArchived': 'switchArchived'
 		},
 
 		onRender: function(){
@@ -29,6 +31,12 @@ define(['marionette', './userSearch/UserCollection', './userSearch/UserComposite
 					context.router.navigate('/', {trigger: true});
 				}
 			});
+		},
+
+		switchArchived: function(){
+			this.archived = !this.archived;
+			this.trigger('archived', this.archived);
+			this.ui.switchArchived.text(!this.archived ? 'Archived Tasks' : 'Open Tasks');
 		},
 
 		showCollaboratorView: function(){

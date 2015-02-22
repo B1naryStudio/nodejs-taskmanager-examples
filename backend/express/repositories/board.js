@@ -11,7 +11,7 @@ BoardRepository.prototype = new Repository();
 
 BoardRepository.prototype.addTask = function(boardId, taskId, callback) {
 	this.model.findByIdAndUpdate({_id: ObjectId(boardId)}, 
-		{$push: {'tasks': taskId}}, 
+		{$push: {'tasks': {task:taskId}}}, 
 		{safe: true, upsert: true},
 	callback);
 };
@@ -36,7 +36,5 @@ BoardRepository.prototype.findUsersByBoardId = function(boardId, callback) {
 		callback(err, res);
 	});
 };
-
-BoardRepository.prototype.fieldsToPopulate = ['tasks'];
 
 module.exports = new BoardRepository();

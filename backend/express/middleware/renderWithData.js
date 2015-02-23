@@ -1,6 +1,8 @@
 module.exports = function(req, res, next){
+	var object = {
+		user: req.user
+	};
  	res.render('layout', {
- 		user: JSON.stringify(req.user)
+ 		object: JSON.stringify(object)
  	});
- 	console.log(req.user);
 };

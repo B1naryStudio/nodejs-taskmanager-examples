@@ -8,7 +8,8 @@ head
 	link(rel="stylesheet", href="/bower_components/font-awesome/css/font-awesome.css")
 body
 	#header
-		#header-left
+		#header-left 
+		#header-center Task Manager
 		#header-right
 			
 	#content
@@ -23,7 +24,9 @@ body
 	include ./task/task
 
 	script.
-		window.__data = {
-			user: JSON.parse('!{user}')
-		};
+		try{
+			window.__data = JSON.parse('!{object}');
+		} catch(e){
+		
+		}
 	script(src="/javascripts/libs/require.js", data-main="/javascripts/main.js")

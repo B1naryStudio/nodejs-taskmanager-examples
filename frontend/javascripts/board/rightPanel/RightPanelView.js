@@ -22,7 +22,13 @@ define(['marionette', './userSearch/UserCollection', './userSearch/UserComposite
 		},
 
 		onRender: function(){
+			var self = this;
 			this.showCollaboratorView();
+			this.toggle = $('#task-right-panel-toggle');
+			this.toggle.on('click', function(){
+				self.toggle.toggleClass('shown');
+				self.$el.parent().toggleClass('shown');
+			});
 		},
 
 		onRemoveBoard: function(){

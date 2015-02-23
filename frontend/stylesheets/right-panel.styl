@@ -1,4 +1,25 @@
+#task-right-panel-toggle
+	position: fixed
+	top: 65px
+	right: 0px
+	width: 30px
+	height: 30px
+	background: #D2D2D2
+	cursor: pointer
+	color: white
+	&:before
+		content: '<'
+		text-align: center
+		font-size: 19px
+		color: black
+		margin-left: 8px
+	&.shown
+		right: 200px
+		&:before
+			content: '>'
+
 #task-right-panel
+	display: none
 	position: fixed
 	width: 200px
 	background-color: #D2D2D2
@@ -7,7 +28,9 @@
 	right: 0px
 	color: #626262
 	padding-left: 10px
-	
+	&.shown
+		display: block
+
 #users-modal
 	border: 1px solid #808080
 	padding: 10px

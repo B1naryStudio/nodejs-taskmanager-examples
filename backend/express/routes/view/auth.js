@@ -42,7 +42,7 @@ router.post('/signin', function(req, res, next){
 
 		req.logIn(user, function(err) {
 			if (err) {
-				req.flash('message', 'Database Error');;
+				req.flash('message', 'Database Error');
 				return next(err);
 			}
 			return res.redirect('/');

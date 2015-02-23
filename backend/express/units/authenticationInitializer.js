@@ -15,11 +15,11 @@ module.exports = function () {
 				}
 				
 				if (!user) {
-					return done(null, false, { message: 'Incorrect username.' });
+					return done(null, false, { message: 'Incorrect email or password.' });
 				}				
 
 				if (!user.isValidPassword(password)) {
-					return done(null, false, { message: 'Incorrect password.' });
+					return done(null, false, { message: 'Incorrect email or password.' });
 				}				
 
 				return done(null, user);

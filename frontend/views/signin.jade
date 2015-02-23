@@ -2,6 +2,11 @@ extends layout
 
 block content
 	form(action="/auth/signin", method="POST").columns.small-centered.small-6.form-centered
+		if (userValidation.length)
+			small.error= userValidation
 		input(type="text", name="email", placeholder="email")
 		input(type="password", name="password", placeholder="password")
 		button(type="submit") Sign In
+
+	script.
+		window.__userValidation = '!{userValidation}';

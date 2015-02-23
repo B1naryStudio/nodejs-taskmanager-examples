@@ -22,10 +22,34 @@ router.post('/signup', function(req, res){
 });
 
 router.get('/signin', function(req, res, next){
-	res.render('signin');
+	if (!req.user){
+		res.render('signin', {userValidation: req.flash('message')});
+	} else {
+		res.redirect('/');
+	}
 });
 
-router.post('/signin', passport.authenticate('local', { successRedirect: '/', failureRedirect: '/auth/signin', failureFlash: true }));
+router.post('/signin', function(req, res, next){
+	passport.authenticate('local', function(err, user, info){
+		if (err) {
+			return next(err);
+		}
+
+		if (!user) {
+			req.flash('message', info.message);
+			return res.redirect('/auth/signin');
+		}
+
+		req.logIn(user, function(err) {
+			if (err) {
+				req.flash('message', 'Database Error');;
+				return next(err);
+			}
+			return res.redirect('/');
+		});
+	})(req, res, next);
+
+});
 
 router.get('/facebook', passport.authenticate('facebook'));
 router.get('/facebook/callback', passport.authenticate('facebook', { successRedirect: '/', failureRedirect: '/auth/signin' }));

@@ -35,7 +35,9 @@ Application.prototype.configure = function(app){
 		saveUninitialized: true
 	}));
 
-	var authenticationInitializer = require('./units/authenticationInitializer')();
+	var acl = require('./units/acl')();
+
+	var authenticationInitializer = require('./units/authentication')();
 
 	app.use(bodyParser.json());
 	app.use(bodyParser.urlencoded({extended: true}));

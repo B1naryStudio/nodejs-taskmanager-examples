@@ -98,3 +98,75 @@ participant : [_id: ObjectId]
 | /api/task/:id | PUT |
 | /api/task/:id | DELETE |
 | /api/task/:id/participant/:user_id | DELETE |
+
+##Frameworks comparison by functionality
+
+###Routing
+
+| Type | Express | Hapi | Sails |
+|------|---------|------|-------|
+| Callbacks| + | + |  + |   
+| Controllers| - | - | + |
+
+###Logging
+
+| Type | Express | Hapi | Sails |
+|------|---------|------|-------|
+| Custom | - | + |  + |   
+| HTTP | - | + | - |
+| DB requests | - | - | - |
+
+
+###Validation
+
+| Type | Express | Hapi | Sails |
+|------|---------|------|-------|
+| Object declarations | - | + |  + |   
+
+
+###ORM
+
+| Type | Express | Hapi | Sails |
+|------|---------|------|-------|
+| ORM | - | - |  + |   
+| NoSQL support | - | - |  + |   
+
+
+###CLI
+
+| Type | Express | Hapi | Sails |
+|------|---------|------|-------|
+| Scaffolding | -/+ | - |  + |   
+| Migrations | - | - |  - |   
+
+
+###Authentication
+
+| Type | Express | Hapi | Sails |
+|------|---------|------|-------|
+| Authentication | - | + |  - |   
+
+
+###Authorization
+
+| Type | Express | Hapi | Sails |
+|------|---------|------|-------|
+| ACL | - | - |  - |   
+| RBAC | - | - |  + |   
+
+
+###WebSocket
+
+| Type | Express | Hapi | Sails |
+|------|---------|------|-------|
+| ACL | - | - |  - |   
+
+###Configuration
+
+| Type | Express | Hapi | Sails |
+|------|---------|------|-------|
+| Custom | -/+ | - |  + |   
+| Environment-based | - | - |  + |   
+
+
+

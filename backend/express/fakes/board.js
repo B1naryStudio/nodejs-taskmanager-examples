@@ -20,7 +20,7 @@ casual.define('board_id_', function(entityName, unique) {
 casual.define('board_', function() {
 	var id = casual.board_id_('board');
 	return {
-		id: id,
+		_id: id,
 		name: casual.word,
 		isPrivate: casual.random_element([true, false]),
 		users: casual.user_ids_collection_(10)

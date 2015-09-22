@@ -35,8 +35,6 @@ Application.prototype.configure = function(app){
 		saveUninitialized: true
 	}));
 
-	var acl = require('./units/acl')();
-
 	var authenticationInitializer = require('./units/authentication')();
 
 	app.use(bodyParser.json());

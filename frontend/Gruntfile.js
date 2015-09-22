@@ -1,7 +1,7 @@
 module.exports = function (grunt) {
 	grunt.initConfig({
 		javascripts: ['javascripts/**/*.js'],
-		server_js: ['../backend/**/*.js', '!../backend/*/node_modules/**/*.js',],
+		server_js: ['../backend/express/**/*.js', '!../backend/*/node_modules/**/*.js',],
 		stylesheets: ['stylesheets/**/*.styl'],
 
 		jshint: {

@@ -4,8 +4,8 @@ var userService = require('../../services/user');
 var isLoggedIn = require('../../middleware/isLoggedIn');
 var apiResponse = require('express-api-response');
 
-router.get('/', isLoggedIn, function(req, res, next){
-	userService.getUsers(req.query, function(err, data){
+router.get('/board/:boardId', isLoggedIn, function(req, res, next){
+	userService.getUsers(req.query, req.params.boardId, function(err, data){
 		res.data = data;
 		res.err = err;
 		next();

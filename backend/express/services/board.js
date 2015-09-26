@@ -68,8 +68,6 @@ BoardService.prototype.isBoardMember = function(options, callback) {
 			return callback(err);
 		}
 
-		console.log('aa', board);
-
 		if (!board.isPrivate){
 			return callback(null, true);
 		}

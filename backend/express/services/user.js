@@ -1,19 +1,40 @@
 var userRepository = require('../repositories/user');
+var userToBoardRepository = require('../repositories/userToBoard');
 var bcrypt = require('bcrypt-nodejs');
+var _ = require('lodash');
 
 function UserService(){
 
 }
 
-UserService.prototype.getUsers = function(query, callback) {
+UserService.prototype.getUsers = function(query, boardId, callback) {
 	var obj = {};
 	if (query.search){
 		obj.email = new RegExp(query.search, 'i');
 	}
 	
 	userRepository.findWhere(obj, function(err, data){
+
+		if (err){
+			return callback(err);
+		}
+
 		data = data.map(function(it){return it.getViewModel();});
-		callback(err, data);
+		
+		userToBoardRepository.findUsersByBoardId(boardId, function(err, usersOnBoard){
+			if (err){
+				return callback(err);
+			}
+			data = data.filter(function(item){
+				return !_.some(usersOnBoard, function(user){
+					return item.email === user.email;
+				});
+			});
+
+			callback(err, data);
+
+		});	
+
 	});
 };
 

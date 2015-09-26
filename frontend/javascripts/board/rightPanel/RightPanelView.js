@@ -75,7 +75,9 @@ define(['marionette', './userSearch/UserCollection', './userSearch/UserComposite
 		onAddUserClick: function(){
 			if (!this.user){
 				this.user = {
-					collection: new UserCollection()
+					collection: new UserCollection([], {
+						boardId: this.model.get('_id')
+					})
 				};
 			}
 			if (!this.user.view){

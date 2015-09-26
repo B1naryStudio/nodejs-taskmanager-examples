@@ -51,7 +51,7 @@ define(['../units/Mediator', 'backbone', './TaskCompositeView',
 		});
 	};
 
-	BoardMediator.prototype.getTasksView = function() {
+	BoardMediator.prototype.getTasksView = function(callback) {
 			var self = this;
 			if (!this.task){
 				this.task = {};
@@ -59,28 +59,41 @@ define(['../units/Mediator', 'backbone', './TaskCompositeView',
 			}
 			this.task.collection.boardId = this.boardId;
 			this.task.collection.fetch();
-			this.task.view = new TaskCompositeView({
-				collection: this.task.collection,
-				model: new Backbone.Model()
-			});
-
-			return this.task.view;
+			if (!this.board.isSynced){
+				this.board.on('sync error', function(model, res, options){
+					this.board.status = res.status;
+					this.task.view = new TaskCompositeView({
+						collection: this.task.collection,
+						model: this.board
+					});
+					callback(this.task.view);
+				}.bind(this));
+			} else {
+				this.task.view = new TaskCompositeView({
+					collection: this.task.collection,
+					model: this.board
+				});
+				callback(this.task.view);
+			}
 	};
 
 	BoardMediator.prototype.showTasks = function() {
-		var tasksView = this.getTasksView();
-		this.regions.taskContent.show(tasksView);
+		var self = this;
 
-		var rightPanelView = new RightPanelView({
-			model: this.board
+		this.getTasksView(function(){
+
+			self.regions.taskContent.show(self.task.view);
+
+			var rightPanelView = new RightPanelView({
+				model: self.board
+			});
+
+			self.listenTo(rightPanelView, 'archived', function(archived){
+				self.task.collection.setArchived(archived);
+			}, self);
+
+			self.regions.rightPanel.show(rightPanelView);
 		});
-
-		this.listenTo(rightPanelView, 'archived', function(archived){
-			this.task.collection.setArchived(archived);
-		}, this);
-
-		this.regions.rightPanel.show(rightPanelView);
-
 	};
 
 	BoardMediator.prototype.showTask = function(task_id) {

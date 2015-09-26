@@ -30,6 +30,11 @@ define(['marionette', './userSearch/UserCollection', './userSearch/UserComposite
 			this.showCollaboratorView();
 			this.toggle = $('#task-right-panel-toggle');
 			this.toggle.off();
+
+			if (this.model.status){
+				this.toggle.hide();
+			}
+
 			this.toggle.on('click', function(){
 				self.toggle.toggleClass('shown');
 				self.$el.parent().toggleClass('shown');
@@ -63,8 +68,8 @@ define(['marionette', './userSearch/UserCollection', './userSearch/UserComposite
 				});
 
 				this.collaborator.view.render();
-				this.collaborator.view.$el.appendTo(this.ui.collaboratorsContainer);
 			}
+			this.collaborator.view.$el.appendTo(this.ui.collaboratorsContainer);
 		},
 
 		onAddUserClick: function(){

@@ -3,7 +3,9 @@ define(['marionette', './TaskItemView', './AddNewTaskView', './Task', 'app/conte
 
 	var TaskCompositeView = Marionette.CompositeView.extend({
 		childView: TaskItemView,
-		template: '#tasks-template',
+		getTemplate: function(){
+			return this.model.status ? '#private-board-template' : '#tasks-template';
+		},
 
 		ui:{
 			'to-do': '#tasks-to-do .tasks-container',			

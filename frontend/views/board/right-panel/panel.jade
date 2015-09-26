@@ -11,13 +11,13 @@ script#right-panel-template(type="text/template")
 	{{ if (isPrivate){ }}
 	div 
 		span This board is 
-		span#board-access-modifier-label private
+		span.board-access-modifier-label private
 		span . Only board members can see it
 	{{ } else { }}
 
 	div 
 		span This board is 
-		span#board-access-modifier-label public
+		span.board-access-modifier-label public
 		span . Anyone can see it
 
 	{{ } }}

@@ -10,6 +10,15 @@ define([], function(){
 
 		initialize: function(){
 			this.fetch();
+			this.bindListeners();
+		},
+
+		bindListeners: function(){
+			var self = this;
+
+			this.on('sync error', function(){
+				self.isSynced = true;
+			});
 		}
 	});
 

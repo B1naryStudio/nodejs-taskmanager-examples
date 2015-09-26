@@ -8,9 +8,6 @@ script#task-modal-template(type="text/template")
 		#t-right
 			select#t-status
 				{{ for (var i = 0; i < tasks.length; i++){ }}
-				//- option(value="to-do") To Do 
-				//- option(value="in-progress") In Progress
-				//- option(value="done") Done
 				option(value="{{- tasks[i].value }}") {{- tasks[i].text }}
 				{{ } }}
 			button#t-add-members.t-right-button.info Members

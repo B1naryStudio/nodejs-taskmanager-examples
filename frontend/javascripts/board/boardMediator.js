@@ -1,9 +1,9 @@
 define(['../units/Mediator', 'backbone', './TaskCompositeView',
-	'./TaskCollection', './BoardLayout', './rightPanel/RightPanelView',
-	'../task/Task', '../task/TaskView', 'app/context'], 
+	'./TaskCollection', './BoardLayout', './rightPanel/RightPanelView', 
+	'./rightPanel/Board', '../task/Task', '../task/TaskView', 'app/context'], 
 	function(Mediator, Backbone, TaskCompositeView,
-		TaskCollection, BoardLayout, RightPanelView,
-		Task, TaskView, context){
+		TaskCollection, BoardLayout, RightPanelView, 
+		Board, Task, TaskView, context){
 
 	var BoardMediator = function(){
 		Mediator.prototype.constructor.call(this);
@@ -24,6 +24,8 @@ define(['../units/Mediator', 'backbone', './TaskCompositeView',
 	BoardMediator.prototype.initializeLayout = function(route) {
 		var self = this;
 
+		this.initializeBoard();
+
 		this.layout = new BoardLayout();
 		this.layout.on('show', function(){
 			self.regionManager = new Marionette.RegionManager();
@@ -41,6 +43,12 @@ define(['../units/Mediator', 'backbone', './TaskCompositeView',
 		if (this.taskView){
 			this.taskView.destroy();
 		}
+	};
+
+	BoardMediator.prototype.initializeBoard = function() {
+		this.board = new Board({
+			_id: this.boardId
+		});
 	};
 
 	BoardMediator.prototype.getTasksView = function() {
@@ -64,7 +72,7 @@ define(['../units/Mediator', 'backbone', './TaskCompositeView',
 		this.regions.taskContent.show(tasksView);
 
 		var rightPanelView = new RightPanelView({
-			boardId: this.boardId
+			model: this.board
 		});
 
 		this.listenTo(rightPanelView, 'archived', function(archived){

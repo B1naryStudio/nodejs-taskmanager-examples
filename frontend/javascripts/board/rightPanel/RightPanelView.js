@@ -21,10 +21,15 @@ define(['marionette', './userSearch/UserCollection', './userSearch/UserComposite
 			'click @ui.switchArchived': 'switchArchived'
 		},
 
+		modelEvents: {
+			'sync': 'render'
+		},
+
 		onRender: function(){
 			var self = this;
 			this.showCollaboratorView();
 			this.toggle = $('#task-right-panel-toggle');
+			this.toggle.off();
 			this.toggle.on('click', function(){
 				self.toggle.toggleClass('shown');
 				self.$el.parent().toggleClass('shown');
@@ -32,7 +37,7 @@ define(['marionette', './userSearch/UserCollection', './userSearch/UserComposite
 		},
 
 		onRemoveBoard: function(){
-			boardService.removeBoard(this.options.boardId, function(err){
+			boardService.removeBoard(this.model.get('_id'), function(err){
 				if (!err){
 					context.router.navigate('/', {trigger: true});
 				}
@@ -50,7 +55,7 @@ define(['marionette', './userSearch/UserCollection', './userSearch/UserComposite
 				this.collaborator = {
 					collection: new CollaboratorCollection()
 				};
-				this.collaborator.collection.setBoard(this.options.boardId);
+				this.collaborator.collection.setBoard(this.model.get('_id'));
 			}
 			if (!this.collaborator.view){
 				this.collaborator.view = new CollaboratorCollectionView({
@@ -93,7 +98,7 @@ define(['marionette', './userSearch/UserCollection', './userSearch/UserComposite
 		},
 
 		onAddUser: function(email){
-			boardService.addUser(this.options.boardId, email, function(err){
+			boardService.addUser(this.model.get('_id'), email, function(err){
 				if (!err){
 
 				}

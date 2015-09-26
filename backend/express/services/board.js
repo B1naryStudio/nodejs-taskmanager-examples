@@ -60,4 +60,43 @@ BoardService.prototype.addUser = function(boardId, userEmail, callback) {
 	});
 };
 
+BoardService.prototype.isBoardMember = function(options, callback) {
+
+	boardRepository.findOne({_id: options.board}, function(err, board){
+
+		if (err || !board){
+			return callback(err);
+		}
+
+		console.log('aa', board);
+
+		if (!board.isPrivate){
+			return callback(null, true);
+		}
+
+		userToBoardRepository.findOne(options, function(err, data){
+			if (err){
+				return callback(err);
+			}
+			return callback(err, !!data);
+		});
+
+	});
+
+};
+
+BoardService.prototype.isBoardAdmin = function(options, callback) {
+	
+	userToBoardRepository.findOne(options, function(err, data){
+		if (err){
+			return callback(err);
+		}
+
+		if (data){
+			return callback(err, data.isAdmin);
+		}
+	});
+
+};
+
 module.exports = new BoardService();

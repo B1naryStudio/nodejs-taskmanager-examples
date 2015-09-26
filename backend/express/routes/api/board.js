@@ -5,7 +5,7 @@ var isLoggedIn = require('../../middleware/isLoggedIn');
 var apiResponse = require('express-api-response');
 
 router.get('/', isLoggedIn, function(req, res, next){
-	boardService.findBoardsForUserId(req.user, function(err, data){
+	boardService.findBoardsByUserId(req.user._id, function(err, data){
 		res.data = data;
 		res.err = err;
 		next();
@@ -50,7 +50,7 @@ router.get('/:id/task/archived', isLoggedIn, function(req, res, next){
 }, apiResponse);
 
 router.get('/:id/user', isLoggedIn, function(req, res, next){
-	boardRepository.findUsersByBoardId(req.params.id, function(err, data){
+	boardService.findBoardUsers(req.params.id, function(err, data){
 		res.data = data;
 		res.err = err;
 		next();

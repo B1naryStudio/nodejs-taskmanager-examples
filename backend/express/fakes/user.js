@@ -11,8 +11,7 @@ casual.define('user_', function() {
 		_id: id,
 		email: casual.email,
 		password: userService.encodePassword(password, false),
-		password_plain: password,
-		boards: casual.ids_collection_('board', 'user', 5)
+		password_plain: password
 	};
 });
 

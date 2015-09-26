@@ -7,11 +7,7 @@ var User = new mongoose.Schema({
 	avatar_url: String,
 	email: String,
 	password: String,
-	password_plain: String,
-	boards: [{
-		type: ObjectId,
-		ref: 'Board'
-	}]
+	password_plain: String
 });
 
 User.methods.isValidPassword = function(password){

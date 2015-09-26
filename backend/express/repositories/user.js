@@ -9,11 +9,4 @@ function UserRepository (){
 
 UserRepository.prototype = new Repository();
 
-UserRepository.prototype.findOneAndAddBoard = function(queryObj, boardId, callback) {
-	this.model.findOneAndUpdate(queryObj, 
-		{$push: {'boards': boardId}}, 
-		{safe: true, upsert: true},
-	callback);
-};
-
 module.exports = new UserRepository();

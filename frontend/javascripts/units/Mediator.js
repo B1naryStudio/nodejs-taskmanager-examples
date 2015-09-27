@@ -15,7 +15,8 @@ define(['backbone', 'underscore'], function(Backbone, _){
 
 	Mediator.prototype.bindParentListeners = function() {
 		var self = this;
-		this.listenTo(Backbone, 'current-mediator', function(mediatorId){
+		this.listenTo(Backbone, 'current-mediator', function(options){
+			var mediatorId = options.name;
 			if (mediatorId !== self.id && self.isCurrentMediator){
 				if (self.layout){
 					self.layout.destroy();

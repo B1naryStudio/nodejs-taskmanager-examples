@@ -49,6 +49,9 @@ define(['../units/Mediator', 'backbone', './TaskCompositeView',
 		this.board = new Board({
 			_id: this.boardId
 		});
+		this.board.on('sync', function(){
+			Backbone.trigger('current-board', this.board.get('name'));
+		}, this);
 	};
 
 	BoardMediator.prototype.getTasksView = function(callback) {

@@ -19,20 +19,29 @@ define(['../landing/landingMediator', '../board/boardMediator', '../header/heade
 		var landingLayout = landingMediator.getLayout(route);
 		this.regions.content.show(landingLayout);
 		this.regions.headerLeft.reset();
-		Backbone.trigger('current-mediator', 'landing');
+		Backbone.trigger('current-mediator', {
+			name: 'landing',
+			route: route
+		});
 	};
 
 	AppMediator.prototype.showTasks = function(route){
 		var boardLayout = boardMediator.getLayout(route);
 		this.regions.content.show(boardLayout);
-		Backbone.trigger('current-mediator', 'board');
+		Backbone.trigger('current-mediator', {
+			name: 'board',
+			route: route
+		});
 	};
 
 	AppMediator.prototype.showTask = function(boardId, taskId){
 		var boardLayout = boardMediator.getLayout(boardId);
 		this.regions.content.show(boardLayout);
 		boardMediator.showTask(taskId);
-		Backbone.trigger('current-mediator', 'board');
+		Backbone.trigger('current-mediator', {
+			name: 'board',
+			route: route
+		});
 	};
 
 	return new AppMediator();

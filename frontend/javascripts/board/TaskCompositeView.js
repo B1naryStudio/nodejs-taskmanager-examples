@@ -38,6 +38,9 @@ define(['marionette', './TaskItemView', './AddNewTaskView', './Task', 'app/conte
 				top: event.clientY,
 				left: event.clientX
 			});
+			this.addNewTaskView.on('destroy', function(){
+				delete this.addNewTaskView;
+			}, this);
 		},
 
 		onTaskClick: function(el, id){

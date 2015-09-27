@@ -11,7 +11,12 @@ define(['marionette'], function(Marionette){
 
 		events: {
 			'click @ui.createTask': 'onCreateTask',
-			'click @ui.cancel': 'hide'
+			'click @ui.cancel': 'hide',
+			'click': 'onClick'
+		},
+
+		onClick: function(ev){
+			ev.stopPropagation();
 		},
 
 		onCreateTask: function(){
@@ -32,6 +37,15 @@ define(['marionette'], function(Marionette){
 				top: coords.top,
 				left: coords.left
 			});
+			var initialized = false;
+			$(document).on('click.modal', function(){
+				if (initialized){
+					this.destroy();
+					$(document).off('click.modal');
+				} else {
+					initialized = true;
+				}
+			}.bind(this));
 		},
 
 		hide: function(){

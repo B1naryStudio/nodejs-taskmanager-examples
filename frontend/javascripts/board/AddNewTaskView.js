@@ -22,10 +22,12 @@ define(['marionette'], function(Marionette){
 		onCreateTask: function(){
 			var name = this.ui.name.val();
 			var isPrivate = this.ui.isPrivate.val();
-			this.trigger('add', {
-				name: name
-			});
-			this.hide();
+			if (name){
+				this.trigger('add', {
+					name: name
+				});
+				this.hide();
+			}
 		},
 
 		show: function(coords){

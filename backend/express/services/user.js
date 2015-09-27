@@ -2,6 +2,7 @@ var userRepository = require('../repositories/user');
 var userToBoardRepository = require('../repositories/userToBoard');
 var bcrypt = require('bcrypt-nodejs');
 var _ = require('lodash');
+var utils = require('../units/utils');
 
 function UserService(){
 
@@ -10,7 +11,9 @@ function UserService(){
 UserService.prototype.getUsers = function(query, boardId, callback) {
 	var obj = {};
 	if (query.search){
-		obj.email = new RegExp(query.search, 'i');
+		var search = utils.escapeRegExp(query.search);
+		console.log(search);
+		obj.email = new RegExp(search, 'i');
 	}
 	
 	userRepository.findWhere(obj, function(err, data){

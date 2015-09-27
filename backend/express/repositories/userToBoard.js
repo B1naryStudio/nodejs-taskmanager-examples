@@ -9,6 +9,21 @@ function UserToBoardRepository (){
 
 UserToBoardRepository.prototype = new Repository();
 
+UserToBoardRepository.prototype.add = function(data, callback) {
+	this.findOne(data, function(err, result){
+		if (err){
+			return callback(err);
+		}
+		if (!result){
+			Repository.prototype.add.call(data, callback);
+		} else {
+			return callback(new Error('User is already a member of the board'));
+		}
+
+	});
+
+};
+
 UserToBoardRepository.prototype.findBoardsByUserId = function(userId, callback) {
 	var query = this.model.find({user: userId}).populate('board');
 	query.exec(function(err, data){

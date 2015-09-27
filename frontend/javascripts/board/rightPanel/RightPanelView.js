@@ -12,7 +12,8 @@ define(['marionette', './userSearch/UserCollection', './userSearch/UserComposite
 			'addUser': '#rp-add-user',
 			'collaboratorsContainer': '#collaborators-container',
 			'removeBoard': '#rp-remove-board',
-			'switchArchived': '#rp-switch-archived'
+			'switchArchived': '#rp-switch-archived',
+			'usersModal': '#users-modal-container'
 		},
 
 		events: {
@@ -86,8 +87,10 @@ define(['marionette', './userSearch/UserCollection', './userSearch/UserComposite
 					model: new Backbone.Model()
 				});
 
-				this.user.view.show();
 			}
+
+			this.user.view.show().appendTo(this.ui.usersModal);
+
 			this.bindUserListeners();
 		},
 

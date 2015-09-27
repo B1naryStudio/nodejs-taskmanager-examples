@@ -5,7 +5,7 @@ define(['marionette', './UserItemView'],
 		template: '#users-search-template',
 		childView: UserItemView,
 		childViewContainer: '#users-search-container',
-		el: '#users-modal',
+		
 		ui: {
 			'userSearch': '#user-search',
 			'close': '#users-modal-close',
@@ -24,7 +24,7 @@ define(['marionette', './UserItemView'],
 
 		show: function(){
 			this.render();
-			this.$el.toggleClass('show', true);
+			return this.$el;
 		},
 
 		onDestroy: function(){

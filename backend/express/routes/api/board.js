@@ -68,6 +68,23 @@ router.post('/:id/user', isLoggedIn, isBoardAdmin, function(req, res, next){
 	});
 }, apiResponse);
 
+router.put('/:id/user', isLoggedIn, isBoardAdmin, function(req, res, next){
+	var isAdmin = req.body.isAdmin;
+	boardService.changeUserRights(req.params.id, {isAdmin: isAdmin}, function(err, data){
+		res.data = data;
+		res.err = err;
+		next();
+	});
+}, apiResponse);
+
+router.delete('/:id/user', isLoggedIn, isBoardAdmin, function(req, res, next){
+	boardService.deleteUser(req.params.id, function(err, data){
+		res.data = data;
+		res.err = err;
+		next();
+	});
+}, apiResponse);
+
 router.delete('/:id', isLoggedIn, isBoardAdmin, function(req, res, next){
 	boardRepository.findAndDelete({_id: req.params.id}, function(err, data){
 		res.err = err;

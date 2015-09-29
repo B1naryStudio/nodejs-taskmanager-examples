@@ -60,6 +60,7 @@ BoardService.prototype.addUser = function(boardId, userEmail, callback) {
 	});
 };
 
+
 BoardService.prototype.isBoardMember = function(options, callback) {
 
 	boardRepository.findOne({_id: options.board}, function(err, board){

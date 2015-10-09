@@ -16,7 +16,10 @@ User.methods.isValidPassword = function(password){
 
 User.methods.getViewModel = function(){
 	return {
-		email: this.email
+		_id: this._id,
+		email: this.email,
+		name: this.name,
+		avatar_url: this.avatar_url
 	};
 };
 

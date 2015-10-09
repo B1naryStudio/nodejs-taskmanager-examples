@@ -1,11 +1,12 @@
-define([], function(){
+define(['app/context'], function(context){
 
 	var Board = Backbone.Model.extend({
 		urlRoot: '/api/board/',
 		idAttribute: '_id',
 		defaults: {
 			name: undefined,
-			isPrivate: undefined
+			isPrivate: undefined,
+			isAdmin: context.isAdmin
 		},
 
 		initialize: function(){

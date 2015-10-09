@@ -60,6 +60,37 @@ BoardService.prototype.addUser = function(boardId, userEmail, callback) {
 	});
 };
 
+BoardService.prototype.changeUserRights = function(boardId, userId, isAdmin, callback) {
+	var queryObj = {
+		board: boardId,
+		user: userId
+	};
+
+	userToBoardRepository.update(queryObj, {isAdmin: isAdmin}, callback);
+};
+
+BoardService.prototype.deleteUser = function(boardId, userId, callback) {
+	var queryObj = {
+		board: boardId,
+		user: userId
+	};
+
+	userToBoardRepository.remove(queryObj, callback);
+};
+
+BoardService.prototype.isAdmin = function(boardId, userId, callback) {
+	var queryObj = {
+		board: boardId,
+		user: userId
+	};
+	userToBoardRepository.findOne(queryObj, function(err, data){
+		var isAdmin;
+		if (data){
+			isAdmin = data.isAdmin;
+		}
+		callback(err, {isAdmin: isAdmin});
+	});
+};
 
 BoardService.prototype.isBoardMember = function(options, callback) {
 

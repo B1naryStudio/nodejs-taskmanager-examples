@@ -68,17 +68,25 @@ router.post('/:id/user', isLoggedIn, isBoardAdmin, function(req, res, next){
 	});
 }, apiResponse);
 
-router.put('/:id/user', isLoggedIn, isBoardAdmin, function(req, res, next){
+router.put('/:id/user/:userId', isLoggedIn, isBoardAdmin, function(req, res, next){
 	var isAdmin = req.body.isAdmin;
-	boardService.changeUserRights(req.params.id, {isAdmin: isAdmin}, function(err, data){
+	boardService.changeUserRights(req.params.id, req.params.userId, isAdmin, function(err, data){
 		res.data = data;
 		res.err = err;
 		next();
 	});
 }, apiResponse);
 
-router.delete('/:id/user', isLoggedIn, isBoardAdmin, function(req, res, next){
-	boardService.deleteUser(req.params.id, function(err, data){
+router.get('/:id/user/:userId/isadmin', isLoggedIn, function(req, res, next){
+	boardService.isAdmin(req.params.id, req.params.userId, function(err, data){
+		res.data = data;
+		res.err = err;
+		next();
+	});
+}, apiResponse);
+
+router.delete('/:id/user/:userId', isLoggedIn, isBoardAdmin, function(req, res, next){
+	boardService.deleteUser(req.params.id, req.params.userId, function(err, data){
 		res.data = data;
 		res.err = err;
 		next();

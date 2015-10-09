@@ -1,5 +1,5 @@
 define(['marionette', './userSearch/UserCollection', './userSearch/UserCompositeView', 
-	'units/boardService', './collaborators/CollaboratorCollection', 
+	'board/boardService', './collaborators/CollaboratorCollection', 
 	'./collaborators/CollaboratorCollectionView', 'app/context'], 
 	function(Marionette, UserCollection, UserCompositeView, 
 		boardService, CollaboratorCollection, 
@@ -27,6 +27,7 @@ define(['marionette', './userSearch/UserCollection', './userSearch/UserComposite
 		},
 
 		onRender: function(){
+			boardService.setBoardId(this.model.get('_id'));
 			var self = this;
 			this.showCollaboratorView();
 			this.toggle = $('#task-right-panel-toggle');

@@ -21,3 +21,10 @@ script#right-panel-template(type="text/template")
 		span . Anyone can see it
 
 	{{ } }}
+
+	{{ if (isAdmin){ }}
+	br
+	div 
+		span You are the admin of this board
+
+	{{ } }}

@@ -50,4 +50,9 @@ Repository.prototype.removeAll = function(callback) {
 	query.exec(callback);
 };
 
+Repository.prototype.remove = function(obj, callback) {
+	var query = this.model.remove(obj);
+	query.exec(callback);
+};
+
 module.exports = Repository;

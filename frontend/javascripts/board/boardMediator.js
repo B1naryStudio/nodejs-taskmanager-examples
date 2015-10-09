@@ -1,9 +1,11 @@
 define(['../units/Mediator', 'backbone', './TaskCompositeView',
 	'./TaskCollection', './BoardLayout', './rightPanel/RightPanelView', 
-	'./rightPanel/Board', '../task/Task', '../task/TaskView', 'app/context'], 
+	'./rightPanel/Board', '../task/Task', '../task/TaskView', 'app/context',
+	'./boardService'], 
 	function(Mediator, Backbone, TaskCompositeView,
 		TaskCollection, BoardLayout, RightPanelView, 
-		Board, Task, TaskView, context){
+		Board, Task, TaskView, context,
+		boardService){
 
 	var BoardMediator = function(){
 		Mediator.prototype.constructor.call(this);
@@ -90,12 +92,16 @@ define(['../units/Mediator', 'backbone', './TaskCompositeView',
 			var rightPanelView = new RightPanelView({
 				model: self.board
 			});
-
 			self.listenTo(rightPanelView, 'archived', function(archived){
 				self.task.collection.setArchived(archived);
 			}, self);
 
 			self.regions.rightPanel.show(rightPanelView);
+
+			boardService.isAdmin(window.__data.user._id, function(data){
+				context.isAdmin = data.isAdmin;
+			});
+
 		});
 	};
 

@@ -39,8 +39,7 @@ define(['../landing/landingMediator', '../board/boardMediator', '../header/heade
 		this.regions.content.show(boardLayout);
 		boardMediator.showTask(taskId);
 		Backbone.trigger('current-mediator', {
-			name: 'board',
-			route: route
+			name: 'board'
 		});
 	};
 

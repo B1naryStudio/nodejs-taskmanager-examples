@@ -9,7 +9,7 @@ define(['marionette'], function(Marionette){
 		},
 
 		onClick: function(){
-			
+			this.trigger('click', this.model);
 		}
 	});
 

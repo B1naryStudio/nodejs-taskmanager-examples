@@ -1,15 +1,17 @@
 define(['app/context'], function(context){
 
+
 	var Board = Backbone.Model.extend({
 		urlRoot: '/api/board/',
 		idAttribute: '_id',
 		defaults: {
 			name: undefined,
 			isPrivate: undefined,
-			isAdmin: context.isAdmin
+			isAdmin: false
 		},
 
 		initialize: function(){
+			this.set('isAdmin', context.isBoardAdmin);
 			this.fetch();
 			this.bindListeners();
 		},

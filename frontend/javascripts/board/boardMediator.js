@@ -16,6 +16,7 @@ define(['../units/Mediator', 'backbone', './TaskCompositeView',
 	BoardMediator.prototype.id = 'board';
 
 	BoardMediator.prototype.getLayout = function(route) {
+		boardService.setBoardId(route);
 		this.boardId = route;
 		if (!this.layout){
 			this.initializeLayout(route);
@@ -26,8 +27,6 @@ define(['../units/Mediator', 'backbone', './TaskCompositeView',
 	BoardMediator.prototype.initializeLayout = function(route) {
 		var self = this;
 
-		this.initializeBoard();
-
 		this.layout = new BoardLayout();
 		this.layout.on('show', function(){
 			self.regionManager = new Marionette.RegionManager();
@@ -35,9 +34,12 @@ define(['../units/Mediator', 'backbone', './TaskCompositeView',
 				taskContent: '#task-content',
 				rightPanel: '#task-right-panel'
 			});
-			var matched = self.matchRoute(route);
 		});
 		this.listenTo(this.layout, 'destroy', this.onDestroy, this);
+
+		this.initializeBoard(function(){
+			var matched = self.matchRoute(route);
+		});
 	};
 
 	BoardMediator.prototype.onDestroy = function() {
@@ -47,13 +49,22 @@ define(['../units/Mediator', 'backbone', './TaskCompositeView',
 		}
 	};
 
-	BoardMediator.prototype.initializeBoard = function() {
-		this.board = new Board({
-			_id: this.boardId
+	BoardMediator.prototype.initializeBoard = function(callback) {
+		var self = this;
+
+		boardService.isAdmin(window.__data.user._id, function(data){
+			context.isBoardAdmin = data.isAdmin;
+
+			self.board = new Board({
+				_id: self.boardId
+			});
+			self.board.on('sync', function(){
+				Backbone.trigger('current-board', self.board.get('name'));
+			}, self);
+
+			callback();
 		});
-		this.board.on('sync', function(){
-			Backbone.trigger('current-board', this.board.get('name'));
-		}, this);
+
 	};
 
 	BoardMediator.prototype.getTasksView = function(callback) {
@@ -97,10 +108,6 @@ define(['../units/Mediator', 'backbone', './TaskCompositeView',
 			}, self);
 
 			self.regions.rightPanel.show(rightPanelView);
-
-			boardService.isAdmin(window.__data.user._id, function(data){
-				context.isAdmin = data.isAdmin;
-			});
 
 		});
 	};

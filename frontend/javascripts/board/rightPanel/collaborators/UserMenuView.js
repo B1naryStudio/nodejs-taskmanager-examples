@@ -1,4 +1,4 @@
-define(['marionette'], function(Marionette){
+define(['marionette', 'underscore', 'app/context'], function(Marionette, _, context){
 
 	var UserMenuView = Marionette.ItemView.extend({
 		template: '#user-menu-template',
@@ -15,12 +15,19 @@ define(['marionette'], function(Marionette){
 			'click': 'onClick'
 		},
 
+		serializeData: function(){
+			var obj = this.model.toJSON();
+			obj.isAdmin = context.isBoardAdmin;
+			return obj;
+		},
+
 		onClick: function(ev){
 			ev.stopPropagation();
 		},
 
 		onRemoveUser: function(){
 			this.trigger('remove-user', this.model.get('_id'));
+			this.destroy();
 		},
 
 		onChangeAdminRghts: function(){
@@ -28,6 +35,7 @@ define(['marionette'], function(Marionette){
 				id: this.model.get('_id'),
 				isAdmin: !this.model.get('isAdmin')
 			});
+			this.destroy();
 		},
 
 		show: function(coords){

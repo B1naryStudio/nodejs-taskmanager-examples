@@ -24,11 +24,18 @@ define(['marionette', './CollaboratorView', './UserMenuView', 'board/boardServic
 		},
 
 		onRemoveUser: function(userId){
-			boardService.removeUser(userId);
+			var self = this;
+
+			boardService.removeUser(userId, function(err){
+				if (!err){
+					var model = self.collection.findWhere({_id: userId});
+					model.destroy();
+				}
+			});
 		},
 
 		onChangeAdminRghts: function(data){
-			boardService.changeAdminRights(data.userId, {isAdmin: data.isAdmin});
+			boardService.changeAdminRights(data.id, {isAdmin: data.isAdmin});
 		}
 	});
 

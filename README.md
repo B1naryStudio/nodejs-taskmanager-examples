@@ -3,6 +3,20 @@
 ### General description
 
 This application is a task manager for developer teams. For each team-project you can create its own board and multiple tasks. You can manage users and tasks according to your development process.
+
+### Setup instructions
+1. go to ./frontend
+1. npm install
+1. bower install
+1. grunt
+1. go to ./backend/express
+1. npm install
+1. make sure you have mongod process running
+1. node ./server.js
+1. in your browser go to localhost:2000
+
+*Warning:* the application is under development and shoudl be used only for testing purposes.
+
 ### Usage and possibilities
 
 In order to use application you should register in an application. You can make it by 

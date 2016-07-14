@@ -15,7 +15,7 @@ This application is a task manager for developer teams. For each team-project yo
 1. node ./server.js
 1. in your browser go to localhost:2000
 
-*Warning:* the application is under development and shoudl be used only for testing purposes.
+**Warning:** the application is under development and should be used for testing purposes only.
 
 ### Usage and possibilities
 
